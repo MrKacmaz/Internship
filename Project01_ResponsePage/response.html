@@ -21,61 +21,64 @@
 </head>
 
 <body>
-    <div class="responsePage">
-        <h1 class="contact">CONTACT</h1>
-        <hr>
+    <main>
+        <div class="responsePage">
+            <h1 class="contact">CONTACT</h1>
+            <hr>
 
-        <div class="userPanelModal">
-            <!-- Button trigger modal -->
-            <div class="d-grid gap-2 addUserButton">
-                <button type="button" class="btn btn-primary" onclick="ModalTrigger()" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">
-                    Add New User
-                </button>
-            </div>
+            <div class="userPanelModal">
+                <!-- Button trigger modal -->
+                <div class="d-grid gap-2 addUserButton">
+                    <button type="button" class="btn btn-primary" onclick="ModalTrigger()" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        Add New User
+                    </button>
+                </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add New User Modal</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Add New User Modal</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" value="" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="surname" class="form-label">Surname</label>
+                                    <input type="text" class="form-control" id="surname" value="" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="mail" class="form-label">Email</label>
+                                    <input type="mail" class="form-control" id="mail" value="" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="number" class="form-label">Phone Number</label>
+                                    <input type="mail" class="form-control" id="number" value="" required>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" id="addBtn" data-bs-dismiss="modal" class="btn btn-primary"
+                                        onclick="AddNewUser()">Add</button>
+                                    <button type="submit" id="updateBtn" data-bs-dismiss="modal" class="btn btn-success"
+                                        onclick="UpdateUser()">Update</button>
+                                </div>
+                            </div>
+
                         </div>
-
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" value="" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="surname" class="form-label">Surname</label>
-                                <input type="text" class="form-control" id="surname" value="" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="mail" class="form-label">Email</label>
-                                <input type="mail" class="form-control" id="mail" value="" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="number" class="form-label">Phone Number</label>
-                                <input type="mail" class="form-control" id="number" value="" required>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="addBtn" data-bs-dismiss="modal" class="btn btn-primary"
-                                    onclick="AddNewUser()">Add</button>
-                                <button type="submit" id="updateBtn" data-bs-dismiss="modal" class="btn btn-success"
-                                    onclick="UpdateUser()">Update</button>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
-        </div>
 
-        <main>
+
             <div>
                 <table class="table" id="responseTable" style="display: none;">
                     <h3 id="welcomeMessage">You can add a new user to your contact</h3>
@@ -95,17 +98,14 @@
                     </tbody>
                 </table>
             </div>
-        </main>
-    </div>
 
+        </div>
+    </main>
     <script>
 
         var responseTable = document.getElementById("responseTable"),
             welcomeMessage = document.getElementById("welcomeMessage"),
-            rIndex;
-
-        var counterC = 1,
-            nameC, surnameC, emailC, numberC;
+            rIndex, counterC = 1, nameC, surnameC, emailC, numberC;
 
 
         function ModalTrigger() {
@@ -150,8 +150,6 @@
             }
 
         }
-
-
 
         function DeleteUser(uniqueCounter) {
 
@@ -208,6 +206,7 @@
             }
             return false;
         }
+
     </script>
 
 </body>
