@@ -19,11 +19,15 @@ body {
   padding-right: 5em;
   padding-top: 1.5em;
 }
+.table{
+padding: 2rem 15rem 0rem 15rem;
+align-items: center;
+align-content: center;
+text-align: center;
+}
 .addUserButton {
-  margin: 1em;
-  padding-left: 10em;
-  padding-right: 10em;
-  padding-bottom: 2em;
+  margin-top: 2rem;
+  margin-bottom: 5em;
 }
 #welcomeMessage {
   text-align: center;

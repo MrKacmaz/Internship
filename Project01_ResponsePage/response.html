@@ -28,7 +28,7 @@
 
             <div class="userPanelModal">
                 <!-- Button trigger modal -->
-                <div class="d-grid gap-2 addUserButton">
+                <div class="d-grid gap-2 col-6 mx-auto addUserButton">
                     <button type="button" class="btn btn-primary" onclick="ModalTrigger()" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">
                         Add New User
@@ -79,8 +79,9 @@
             </div>
 
 
-            <div>
-                <table class="table" id="responseTable" style="display: none;">
+            <div class="table table-responsive">
+                <table class="table table-sm table-striped table-hover table-bordered" id="responseTable"
+                    style="display: none;">
                     <h3 id="welcomeMessage">You can add a new user to your contact</h3>
                     <thead>
                         <tr>
@@ -204,7 +205,7 @@
             if (document.getElementById('name').validity.valid && document.getElementById('surname').validity.valid && document.getElementById('mail').validity.valid && document.getElementById('number').validity.valid) {
                 return true;
             }
-            return false;
+            return true;
         }
 
     </script>
