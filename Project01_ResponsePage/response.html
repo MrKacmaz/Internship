@@ -17,8 +17,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <!-- Sweet alertt src -->
+    <!-- Sweet alert src -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -104,13 +105,14 @@
 
         </div>
     </main>
+    
     <script>
 
         var responseTable = document.getElementById("responseTable"),
             welcomeMessage = document.getElementById("welcomeMessage"),
             rIndex, counterC = 1, nameC, surnameC, emailC, numberC;
 
-        // new values
+        // new values for the update modal
         var updatedName, updatedSurname, updatedMail, updatedNumber;
 
 
@@ -153,6 +155,9 @@
 
                 // sweet alert for added user to table successfully
                 swal("Successful", "User added to your contact", "success");
+
+                clear();
+
 
             } else {
                 // sweet alert for validation error
@@ -261,7 +266,13 @@
                 swal("Error", "Validation Error!", "error");
             }
         }
-
+       
+        function clear() {
+            document.getElementById("name").value = "";
+            document.getElementById("surname").value = "";
+            document.getElementById("number").value = "";
+            document.getElementById("mail").value = "";
+        }
 
     </script>
 
