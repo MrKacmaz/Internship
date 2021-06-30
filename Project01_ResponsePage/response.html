@@ -17,6 +17,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- Sweet alertt src -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -108,6 +110,9 @@
             welcomeMessage = document.getElementById("welcomeMessage"),
             rIndex, counterC = 1, nameC, surnameC, emailC, numberC;
 
+        // new values
+        var updatedName, updatedSurname, updatedMail, updatedNumber;
+
 
         function ModalTrigger() {
             document.getElementById("updateBtn").style.display = "none";
@@ -116,9 +121,8 @@
         }
 
         function AddNewUser() {
-
             // chechk the inputs 
-            if (Validation()) {
+            if (Validation("addUser")) {
 
                 // welcome message disappear and the table is shown
                 responseTable.style.display = "inline-table";
@@ -146,16 +150,47 @@
                     "<td> <button  class = 'btn btn-outline-success' data-bs-toggle='modal' data-bs-target='#exampleModal' onclick ='ShowUserInfo()' > Update </button> </td>" +
                     "<td> <button  class = 'btn btn-outline-danger' onclick='DeleteUser(this)'> Delete </button> </td>";
                 counterC++;
+
+                // sweet alert for added user to table successfully
+                swal("Successful", "User added to your contact", "success");
+
             } else {
-                alert("Inputs can not be empty !");
+                // sweet alert for validation error
+                swal("Could not add user", "Inputs can not be empty!", "error");
             }
 
         }
 
         function DeleteUser(uniqueCounter) {
 
-            let row = uniqueCounter.parentNode.parentNode;
-            row.parentNode.removeChild(row);
+            // sweet alert
+            swal({
+                title: "Are you sure?",
+                text: "You are going to delete this user",
+                icon: "warning",
+                buttons: ["Cancel", "Delete"],
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        // Click the delete button then row that you choose is deleted
+                        let rowInSweetAlert = uniqueCounter.parentNode.parentNode;
+                        rowInSweetAlert.parentNode.removeChild(rowInSweetAlert);
+
+
+                        if (responseTable.rows.length == 1) {
+                            responseTable.style.display = "none";
+                            welcomeMessage.style.display = "inline-table";
+                        }
+
+                        // Success sweet alert show
+                        swal("Your user has been deleted!", {
+                            icon: "success",
+                        });
+
+                    }
+                });
+
 
         }
 
@@ -181,32 +216,52 @@
         }
 
         function UpdateUser() {
-            // new values
-            let updatedName, updatedSurname, updatedMail, updatedNumber;
-
             // values gets from the modal input
             updatedName = document.getElementById("name").value;
             updatedSurname = document.getElementById("surname").value;
             updatedMail = document.getElementById("mail").value;
             updatedNumber = document.getElementById("number").value;
 
-            // added new input values to the selected row
-            // choose the selected rows with their cell
-            // cell[1] means that it shows the name column
-            // cell[2] means that it shows the surname column
-            responseTable.rows[rIndex].cells[1].innerHTML = updatedName;
-            responseTable.rows[rIndex].cells[2].innerHTML = updatedSurname;
-            responseTable.rows[rIndex].cells[3].innerHTML = updatedMail;
-            responseTable.rows[rIndex].cells[4].innerHTML = updatedNumber;
+
+            if (Validation("update")) {
+
+                // added new input values to the selected row
+                // choose the selected rows with their cell
+                // cell[1] means that it shows the name column
+                // cell[2] means that it shows the surname column
+                responseTable.rows[rIndex].cells[1].innerHTML = updatedName;
+                responseTable.rows[rIndex].cells[2].innerHTML = updatedSurname;
+                responseTable.rows[rIndex].cells[3].innerHTML = updatedMail;
+                responseTable.rows[rIndex].cells[4].innerHTML = updatedNumber;
+
+                swal("Successful", "User successfully updated", "success");
+            } else {
+                swal("Update Error", "At least one Input must be changed", "info");
+            }
+
+
         }
 
-        function Validation() {
-            // check the all inputs is empty
-            if (document.getElementById('name').validity.valid && document.getElementById('surname').validity.valid && document.getElementById('mail').validity.valid && document.getElementById('number').validity.valid) {
-                return true;
+        function Validation(tag) {
+            if (tag == "update") {
+                if (updatedName != document.getElementById("name").value || updatedSurname != document.getElementById("surname").value ||
+                    updatedMail != document.getElementById("mail").value || updatedNumber != document.getElementById("number").value) {
+                    return true;
+                }
+                return false;
+
+            } else if (tag == "addUser") {
+                // check the all inputs is empty
+                if (document.getElementById('name').validity.valid && document.getElementById('surname').validity.valid && document.getElementById('mail').validity.valid && document.getElementById('number').validity.valid) {
+                    return true;
+                }
+                return false;
             }
-            return false;
+            else {
+                swal("Error", "Validation Error!", "error");
+            }
         }
+
 
     </script>
 
