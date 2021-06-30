@@ -119,6 +119,7 @@
         function ModalTrigger() {
             document.getElementById("updateBtn").style.display = "none";
             document.getElementById("addBtn").style.display = "inline-table";
+            clear();
 
         }
 
@@ -162,6 +163,7 @@
             } else {
                 // sweet alert for validation error
                 swal("Could not add user", "Inputs can not be empty!", "error");
+                clear();
             }
 
         }
@@ -218,6 +220,7 @@
                     document.getElementById("number").value = this.cells[4].innerHTML;
                 };
             }
+            clear();
         }
 
         function UpdateUser() {
@@ -243,14 +246,15 @@
             } else {
                 swal("Update Error", "At least one Input must be changed", "info");
             }
-
+            
+            clear();
 
         }
 
         function Validation(tag) {
             if (tag == "update") {
-                if (updatedName != document.getElementById("name").value || updatedSurname != document.getElementById("surname").value ||
-                    updatedMail != document.getElementById("mail").value || updatedNumber != document.getElementById("number").value) {
+                if (updatedName != nameC || updatedSurname != surnameC ||
+                    updatedMail != emailC || updatedNumber != numberC) {
                     return true;
                 }
                 return false;
