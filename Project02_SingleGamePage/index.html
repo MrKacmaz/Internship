@@ -185,10 +185,12 @@
                 $(("#lapCheckInputID-" + (i + 1))).change(function () {
                     var $input = $(this);
                     if ($input.prop("checked") == true) {
+                        arrayAdder($("#userOneTableInput-"+(i+1)).val(), $("#userTwoTableInput-1").val(), $("#userThreeTableInput-1").val(), $("#userFourTableInput-1").val());
                         $("#userOneTableInput-" + (i + 1)).prop("disabled", true);
                         $("#userTwoTableInput-" + (i + 1)).prop("disabled", true);
                         $("#userThreeTableInput-" + (i + 1)).prop("disabled", true);
                         $("#userFourTableInput-" + (i + 1)).prop("disabled", true);
+
                     }
                 }).change();
             }
@@ -196,10 +198,11 @@
 
 
 
+
         }
 
-        function arrayAdder() {
-
+        function arrayAdder(userOnePoint, userTwoPoint, userThreePoint, userFourPoint) {
+            console.log(userOnePoint + " + " + userTwoPoint + " + " + userThreePoint + " + " + userFourPoint);
         }
     </script>
 
