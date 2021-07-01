@@ -120,6 +120,10 @@
     <script>
         var userOneName, userTwoName, userThreeName, userFourName, numberOfLaps, userChecked, moreChecked = 0;
         var tableTbodyRef = document.getElementById("tableTbody");
+        var userOnePointArray = new Array();
+        var userTwoPointArray = new Array();
+        var userThreePointArray = new Array();
+        var userFourPointArray = new Array();
 
         function saveBtn() {
             userOneName = $('#userOneInput').val();
@@ -185,7 +189,7 @@
                 $(("#lapCheckInputID-" + (i + 1))).change(function () {
                     var $input = $(this);
                     if ($input.prop("checked") == true) {
-                        arrayAdder($("#userOneTableInput-"+(i+1)).val(), $("#userTwoTableInput-1").val(), $("#userThreeTableInput-1").val(), $("#userFourTableInput-1").val());
+                        arrayAdder($("#userOneTableInput-" + (i + 1)).val(), $("#userTwoTableInput-" + (i + 1)).val(), $("#userThreeTableInput-" + (i + 1)).val(), $("#userFourTableInput-" + (i + 1)).val(), (i + 1));
                         $("#userOneTableInput-" + (i + 1)).prop("disabled", true);
                         $("#userTwoTableInput-" + (i + 1)).prop("disabled", true);
                         $("#userThreeTableInput-" + (i + 1)).prop("disabled", true);
@@ -194,15 +198,26 @@
                     }
                 }).change();
             }
-
-
-
-
-
         }
 
-        function arrayAdder(userOnePoint, userTwoPoint, userThreePoint, userFourPoint) {
-            console.log(userOnePoint + " + " + userTwoPoint + " + " + userThreePoint + " + " + userFourPoint);
+        function arrayAdder(userOnePoint, userTwoPoint, userThreePoint, userFourPoint, indexes) {
+            userOnePointArray.push(userOnePoint);
+            userTwoPointArray.push(userOnePoint);
+            userThreePointArray.push(userOnePoint);
+            userFourPointArray.push(userOnePoint);
+
+
+            if (indexes == numberOfLaps) {
+                let sumUserOne = 0, sumUserTwo = 0, sumUserThree = 0, sumUserFour = 0;
+
+                for (let i = 0; i < numberOfLaps; i++) {
+                    sumUserOne += parseInt(userOnePointArray[i]);
+                    sumUserTwo += parseInt(userTwoPointArray[i]);
+                    sumUserThree += parseInt(userThreePointArray[i]);
+                    sumUserFour += parseInt(userFourPointArray[i]);
+                }
+                console.log(sumUserOne + " " + sumUserTwo + " " + sumUserThree + " " + sumUserFour);
+            }
         }
     </script>
 
