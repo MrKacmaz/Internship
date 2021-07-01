@@ -1,0 +1,57 @@
+.pageOne {
+  background-image: url("https://www.raster.com.tr/uploads/img/1508229868.jpg");
+  background-size: cover;
+  height: 100%;
+}
+.pageOne {
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 5%;
+}
+.pageTwo {
+  padding-left: 15%;
+  padding-right: 15%;
+  padding-top: 2%;
+}
+.table{
+    border: 5px solid black;
+    text-align: center;
+    align-items: center;
+}
+
+.user_1 {
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  padding-top: 10%;
+  margin-right: 70%;
+}
+
+.user_2 {
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  margin-left: 70%;
+}
+.user_3 {
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  padding-top: 20%;
+  margin-right: 70%;
+}
+.user_4 {
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  margin-left: 70%;
+}
+.numberOfLap{
+    text-align: center;
+    margin-left: 35%;
+    margin-right: 35%;
+}
+.save{
+    align-items: center;
+    text-align: center;
+}
