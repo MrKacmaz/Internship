@@ -112,7 +112,40 @@
             </tbody>
         </table>
 
+        <div id="result">
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path
+                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </symbol>
+                <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path
+                        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                </symbol>
+                <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path
+                        d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                </symbol>
+            </svg>
 
+            <div id="winnerDiv" class="alert alert-success d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                    <use xlink:href="#check-circle-fill" />
+                </svg>
+                <div>
+                    <p id="winner"></p>
+                </div>
+            </div>
+
+            <div id="loserDiv" class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                    <use xlink:href="#exclamation-triangle-fill" />
+                </svg>
+                <div>
+                    <p id="loser"></p>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -126,6 +159,10 @@
         var userFourPointArray = new Array();
 
         function saveBtn() {
+
+            $("#result").hide();
+
+
             userOneName = $('#userOneInput').val();
             userTwoName = $('#userTwoInput').val();
             userThreeName = $('#userThreeInput').val();
@@ -139,6 +176,7 @@
                 console.log(userOneName + " + " + userTwoName + " + " + userThreeName + " + " + userFourName + " + " + numberOfLaps);
                 deletePageOne();
             }
+
         }
 
         function checkedUser() {
@@ -190,6 +228,7 @@
                     var $input = $(this);
                     if ($input.prop("checked") == true) {
                         arrayAdder($("#userOneTableInput-" + (i + 1)).val(), $("#userTwoTableInput-" + (i + 1)).val(), $("#userThreeTableInput-" + (i + 1)).val(), $("#userFourTableInput-" + (i + 1)).val(), (i + 1));
+                        $("#lapCheckInputID-" + (i + 1)).prop("disabled", true);
                         $("#userOneTableInput-" + (i + 1)).prop("disabled", true);
                         $("#userTwoTableInput-" + (i + 1)).prop("disabled", true);
                         $("#userThreeTableInput-" + (i + 1)).prop("disabled", true);
@@ -202,10 +241,11 @@
 
         function arrayAdder(userOnePoint, userTwoPoint, userThreePoint, userFourPoint, indexes) {
             userOnePointArray.push(userOnePoint);
-            userTwoPointArray.push(userOnePoint);
-            userThreePointArray.push(userOnePoint);
-            userFourPointArray.push(userOnePoint);
+            userTwoPointArray.push(userTwoPoint);
+            userThreePointArray.push(userThreePoint);
+            userFourPointArray.push(userFourPoint);
 
+            console.log("numberOfLaps + " + numberOfLaps + " indexes +" + indexes);
 
             if (indexes == numberOfLaps) {
                 let sumUserOne = 0, sumUserTwo = 0, sumUserThree = 0, sumUserFour = 0;
@@ -217,7 +257,63 @@
                     sumUserFour += parseInt(userFourPointArray[i]);
                 }
                 console.log(sumUserOne + " " + sumUserTwo + " " + sumUserThree + " " + sumUserFour);
+                let sumPointArray = [sumUserOne, sumUserTwo, sumUserThree, sumUserFour];
+
+                let maxVal = Math.max(sumUserOne, sumUserTwo, sumUserThree, sumUserFour);
+                let minVal = Math.min(sumUserOne, sumUserTwo, sumUserThree, sumUserFour);
+                let minName, maxName;
+
+                switch (maxVal) {
+                    case sumUserOne:
+                        maxName = userOneName;
+                        break;
+
+                    case sumUserTwo:
+                        maxName = userTwoName;
+                        break;
+
+                    case sumUserThree:
+                        maxName = userThreeName;
+                        break;
+
+                    case sumUserFour:
+                        maxName = userFourName;
+                        break;
+                    default:
+                        console.log("error in maxName switch-case");
+                        break;
+                }
+
+                switch (minVal) {
+                    case sumUserOne:
+                        minName = userOneName;
+                        break;
+
+                    case sumUserTwo:
+                        minName = userTwoName;
+                        break;
+
+                    case sumUserThree:
+                        minName = userThreeName;
+                        break;
+
+                    case sumUserFour:
+                        minName = userFourName;
+                        break;
+                    default:
+                        console.log("error in minName switch-case");
+                        break;
+                }
+
+                writeResult(minVal, minName, maxVal, maxName);
             }
+        }
+
+        function writeResult(winnerPoint, winerName, loserPoint, loserName) {
+            $("#result").show();
+
+            $("#winner").text("Winner = " + winerName + " | Point = " + winnerPoint);
+            $("#loser").text("Loser = " + loserName + " | Point = " + loserPoint);
         }
     </script>
 
