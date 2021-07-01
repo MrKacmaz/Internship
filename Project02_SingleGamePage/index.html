@@ -26,7 +26,6 @@
 </head>
 
 <body>
-
     <div class="pageOne">
 
         <div class="user_1">
@@ -108,24 +107,8 @@
                     <th id="checked">Checked</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
+            <tbody id="tableTbody">
+
             </tbody>
         </table>
 
@@ -134,9 +117,9 @@
 
 
 
-
     <script>
-        var userOneName, userTwoName, userThreeName, userFourName, numberOfLapsi, userChecked, moreChecked = 0;
+        var userOneName, userTwoName, userThreeName, userFourName, numberOfLaps, userChecked, moreChecked = 0;
+        var tableTbodyRef = document.getElementById("tableTbody");
 
         function saveBtn() {
             userOneName = $('#userOneInput').val();
@@ -180,6 +163,43 @@
         function deletePageOne() {
             $(".pageOne").remove();
             $(".pageTwo").show();
+            addUserToTable();
+        }
+
+        function addUserToTable() {
+            $("#player1").text(userOneName);
+            $("#player2").text(userTwoName);
+            $("#player3").text(userThreeName);
+            $("#player4").text(userFourName)
+
+            for (let i = 0; i < numberOfLaps; i++) {
+                $("#tableTbody").append(
+                    '<tr id = "trID-' + (i + 1) + '"><td id = "lapID-' + (i + 1) + '">' + (i + 1) + '</td>' +
+                    '<td id = "userOneID-' + (i + 1) + '">' + ' <input id = "userOneTableInput-' + (i + 1) + '" type="number" class="form-control" aria-describedby="inputGroup-sizing-default"> </td>' +
+                    '<td id = "userTwoID-' + (i + 1) + '">' + ' <input id = "userTwoTableInput-' + (i + 1) + '" type="number" class="form-control" aria-describedby="inputGroup-sizing-default"> </td>' +
+                    '<td id = "userThreeID-' + (i + 1) + '">' + ' <input id = "userThreeTableInput-' + (i + 1) + '" type="number" class="form-control" aria-describedby="inputGroup-sizing-default"> </td> ' +
+                    '<td id = "userFourID-' + (i + 1) + '">' + ' <input id = "userFourTableInput-' + (i + 1) + '" type="number" class="form-control" aria-describedby="inputGroup-sizing-default"> </td>' +
+                    '<td id = "lapCheckID-' + (i + 1) + '">' + '<div class="form-check"><input  id="lapCheckInputID-' + (i + 1) + '" ' + ' class="form-check-input" type="checkbox" name="defaultCheck1"><label class="form-check-label" for="lapCheckInputID-' + (i + 1) + '" ' + ' ">Pass the lap</label></div> </td></tr>');
+
+
+                $(("#lapCheckInputID-" + (i + 1))).change(function () {
+                    var $input = $(this);
+                    if ($input.prop("checked") == true) {
+                        $("#userOneTableInput-" + (i + 1)).prop("disabled", true);
+                        $("#userTwoTableInput-" + (i + 1)).prop("disabled", true);
+                        $("#userThreeTableInput-" + (i + 1)).prop("disabled", true);
+                        $("#userFourTableInput-" + (i + 1)).prop("disabled", true);
+                    }
+                }).change();
+            }
+
+
+
+
+        }
+
+        function arrayAdder() {
+
         }
     </script>
 
