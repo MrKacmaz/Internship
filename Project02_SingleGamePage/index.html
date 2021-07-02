@@ -110,7 +110,7 @@
 
         </div>
 
-        <div class="pageTwo" style="display: block;">
+        <div class="pageTwo" style="display: none;">
             <table class="table caption-top">
                 <thead class="table-dark">
                     <tr>
@@ -132,7 +132,6 @@
                         <td id="footerSumUserTwo">0</td>
                         <td id="footerSumUserThree">0</td>
                         <td id="footerSumUserFour">0</td>
-                        <td><button class="btn btn-info">Clear</button></td>
                     </tr>
                 </tfoot>
             </table>
@@ -272,21 +271,22 @@
             }
 
         }
+       
         function hoverCells(selectedUser) {
 
             if (selectedUser == userOneName) {
-                alert(selectedUser + " + " + userOneName);
+                // alert(selectedUser + " + " + userOneName);
                 // $("#userOneTableInput-1").css("background-color", "#ff3300");
 
             }
             if (selectedUser == userTwoName) {
-                alert(selectedUser + " + " + userTwoName);
+                // alert(selectedUser + " + " + userTwoName);
             }
             if (selectedUser == userThreeName) {
-                alert(selectedUser + " + " + userThreeName);
+                // alert(selectedUser + " + " + userThreeName);
             }
             if (selectedUser == userFourName) {
-                alert(selectedUser + " + " + userFourName);
+                // alert(selectedUser + " + " + userFourName);
             }
         }
 
@@ -327,6 +327,8 @@
 
             userFightNameWriteFunc();
 
+
+
             for (let i = 0; i < numberOfLaps; i++) {
                 $("#tableTbody").append(
                     '<tr id = "trID-' + (i + 1) + '"><td id = "lapID-' + (i + 1) + '">' + (i + 1) + '</td>' +
@@ -336,16 +338,29 @@
                     '<td id = "userFourID-' + (i + 1) + '">' + ' <input id = "userFourTableInput-' + (i + 1) + '" type="number" class="form-control" aria-describedby="inputGroup-sizing-default"> </td>' +
                     '<td id = "lapCheckID-' + (i + 1) + '">' + '<div class="form-check"><input  id="lapCheckInputID-' + (i + 1) + '" ' + ' class="form-check-input" type="checkbox" name="defaultCheck1"><label class="form-check-label" for="lapCheckInputID-' + (i + 1) + '" ' + ' ">Pass the lap</label></div> </td></tr>');
 
+                $("input").prop("disabled", true);
+                $("#lapCheckInputID-1").prop("disabled", false);
+                $("#userOneTableInput-1").prop("disabled", false);
+                $("#userTwoTableInput-1").prop("disabled", false);
+                $("#userThreeTableInput-1").prop("disabled", false);
+                $("#userFourTableInput-1").prop("disabled", false);
 
                 $(("#lapCheckInputID-" + (i + 1))).change(function () {
                     var $input = $(this);
                     if ($input.prop("checked") == true) {
                         arrayAdder($("#userOneTableInput-" + (i + 1)).val(), $("#userTwoTableInput-" + (i + 1)).val(), $("#userThreeTableInput-" + (i + 1)).val(), $("#userFourTableInput-" + (i + 1)).val(), (i + 1));
+
                         $("#lapCheckInputID-" + (i + 1)).prop("disabled", true);
                         $("#userOneTableInput-" + (i + 1)).prop("disabled", true);
                         $("#userTwoTableInput-" + (i + 1)).prop("disabled", true);
                         $("#userThreeTableInput-" + (i + 1)).prop("disabled", true);
                         $("#userFourTableInput-" + (i + 1)).prop("disabled", true);
+
+                        $("#lapCheckInputID-" + (i + 2)).prop("disabled", false);
+                        $("#userOneTableInput-" + (i + 2)).prop("disabled", false);
+                        $("#userTwoTableInput-" + (i + 2)).prop("disabled", false);
+                        $("#userThreeTableInput-" + (i + 2)).prop("disabled", false);
+                        $("#userFourTableInput-" + (i + 2)).prop("disabled", false);
                     }
                 }).change();
             }
