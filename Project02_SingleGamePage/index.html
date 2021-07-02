@@ -110,7 +110,7 @@
 
         </div>
 
-        <div class="pageTwo" style="display: none;">
+        <div class="pageTwo" style="display: block;">
             <table class="table caption-top table-hover">
                 <thead class="table-dark">
                     <tr>
@@ -171,6 +171,50 @@
                     </div>
                 </div>
             </div>
+
+            <div id="userFight">
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th id="cross">#</th>
+                            <th id="playerFight1">user1</th>
+                            <th id="playerFight2">user2</th>
+                            <th id="playerFight3">user3</th>
+                            <th id="playerFight4">user4</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th id="playerFight11">user1</th>
+                            <th class="mustBeNone"></th>
+                            <th id="1-2"></th>
+                            <th id="1-3"></th>
+                            <th id="1-4"></th>
+                        </tr>
+                        <tr>
+                            <th id="playerFight22">user2</th>
+                            <th id="2-1"></th>
+                            <th class="mustBeNone"></th>
+                            <th id="2-3"></th>
+                            <th id="2-4"></th>
+                        </tr>
+                        <tr>
+                            <th id="playerFight33">user3</th>
+                            <th id="3-1"></th>
+                            <th id="3-2"></th>
+                            <th class="mustBeNone"></th>
+                            <th id="3-4"></th>
+                        </tr>
+                        <tr>
+                            <th id="playerFight44">user4</th>
+                            <th id="4-1"></th>
+                            <th id="4-2"></th>
+                            <th id="4-3"></th>
+                            <th class="mustBeNone"></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -185,6 +229,9 @@
         var userThreePointArray = new Array();
         var userFourPointArray = new Array();
 
+        var sumUserOne = 0, sumUserTwo = 0, sumUserThree = 0, sumUserFour = 0;
+        var fightArray = new Array();
+
         window.addEventListener('load', function () {
             document.querySelector('input[type="file"]').addEventListener('change', function () {
                 if (this.files && this.files[0]) {
@@ -193,6 +240,18 @@
                 }
             });
         });
+
+        function userFightNameWriteFunc() {
+            $("#playerFight1").text(userOneName);
+            $("#playerFight2").text(userTwoName);
+            $("#playerFight3").text(userThreeName);
+            $("#playerFight4").text(userFourName);
+            $("#playerFight11").text(userOneName);
+            $("#playerFight22").text(userTwoName);
+            $("#playerFight33").text(userThreeName);
+            $("#playerFight44").text(userFourName);
+            $(".mustBeNone").text("X");
+        }
 
         function saveBtn() {
 
@@ -208,8 +267,6 @@
             if (moreChecked != 1) {
                 alert("more than one user");
             } else {
-                console.log(userChecked);
-                console.log(userOneName + " + " + userTwoName + " + " + userThreeName + " + " + userFourName + " + " + numberOfLaps);
                 deletePageOne();
             }
 
@@ -248,7 +305,9 @@
             $("#player1").text(userOneName);
             $("#player2").text(userTwoName);
             $("#player3").text(userThreeName);
-            $("#player4").text(userFourName)
+            $("#player4").text(userFourName);
+
+            userFightNameWriteFunc();
 
             for (let i = 0; i < numberOfLaps; i++) {
                 $("#tableTbody").append(
@@ -281,8 +340,7 @@
             userFourPointArray.push(userFourPoint);
 
             writeFooterSum(indexes);
-
-            console.log("numberOfLaps + " + numberOfLaps + " indexes +" + indexes);
+            userFightFunc();
 
             if (indexes == numberOfLaps) {
                 let sumUserOne = 0, sumUserTwo = 0, sumUserThree = 0, sumUserFour = 0;
@@ -293,7 +351,6 @@
                     sumUserThree += parseInt(userThreePointArray[i]);
                     sumUserFour += parseInt(userFourPointArray[i]);
                 }
-                console.log(sumUserOne + " " + sumUserTwo + " " + sumUserThree + " " + sumUserFour);
                 let sumPointArray = [sumUserOne, sumUserTwo, sumUserThree, sumUserFour];
 
                 let maxVal = Math.max(sumUserOne, sumUserTwo, sumUserThree, sumUserFour);
@@ -347,13 +404,41 @@
         }
 
         function writeFooterSum(tail) {
-            let sumUserOne = 0, sumUserTwo = 0, sumUserThree = 0, sumUserFour = 0;
+            sumUserOne = 0;
+            sumUserTwo = 0;
+            sumUserThree = 0;
+            sumUserFour = 0;
 
             for (let i = 0; i < tail; i++) {
                 sumUserOne += parseInt(userOnePointArray[i]);
                 sumUserTwo += parseInt(userTwoPointArray[i]);
                 sumUserThree += parseInt(userThreePointArray[i]);
                 sumUserFour += parseInt(userFourPointArray[i]);
+
+                console.log(userOnePointArray[i]);
+
+                if (fightArray.length == 0) {
+                    fightArray.push(sumUserOne);
+                    fightArray.push(sumUserTwo);
+                    fightArray.push(sumUserThree);
+                    fightArray.push(sumUserFour);
+                } else {
+                    for (let index = 0; index < fightArray.length; index++) {
+                        if (index == 0) {
+                            fightArray[index] = sumUserOne;
+                        }
+                        if (index == 1) {
+                            fightArray[index] = sumUserTwo;
+                        }
+                        if (index == 2) {
+                            fightArray[index] = sumUserThree;
+                        }
+                        if (index == 3) {
+                            fightArray[index] = sumUserFour;
+                        }
+                    }
+                }
+
             }
             let userBGarray = [sumUserOne, sumUserTwo, sumUserThree, sumUserFour];
 
@@ -386,16 +471,41 @@
                 }
 
             }
+        }
 
-
-            console.log(userBGarray);
-            // $("#footerSumUserOne").text(sumUserOne);
-            // $("#footerSumUserTwo").text(sumUserTwo);
-            // $("#footerSumUserThree").text(sumUserThree);
-            // $("#footerSumUserFour").text(sumUserFour);
-
-
-
+        function userFightFunc() {
+            for (let i = 1; i <= 4; i++) {
+                for (let j = 1; j <= 4; j++) {
+                    if (i == 1) {
+                        let res = sumUserOne - parseInt(fightArray[j - 1]);
+                        if (res < 0) { $('#' + i + '-' + j).css("background-color", "#40ff00"); }
+                        else if (res == 0) { $('#' + i + '-' + j).css("background-color", "#ff9933"); }
+                        else { $('#' + i + '-' + j).css("background-color", "#ff3300"); }
+                        $('#' + i + '-' + j).text(Math.abs(res));
+                    }
+                    if (i == 2) {
+                        let res = sumUserTwo - parseInt(fightArray[j - 1]);
+                        if (res < 0) { $('#' + i + '-' + j).css("background-color", "#40ff00"); }
+                        else if (res == 0) { $('#' + i + '-' + j).css("background-color", "#ff9933"); }
+                        else { $('#' + i + '-' + j).css("background-color", "#ff3300"); }
+                        $('#' + i + '-' + j).text(Math.abs(res));
+                    }
+                    if (i == 3) {
+                        let res = sumUserThree - parseInt(fightArray[j - 1]);
+                        if (res < 0) { $('#' + i + '-' + j).css("background-color", "#40ff00"); }
+                        else if (res == 0) { $('#' + i + '-' + j).css("background-color", "#ff9933"); }
+                        else { $('#' + i + '-' + j).css("background-color", "#ff3300"); }
+                        $('#' + i + '-' + j).text(Math.abs(res));
+                    }
+                    if (i == 4) {
+                        let res = sumUserFour - parseInt(fightArray[j - 1]);
+                        if (res < 0) { $('#' + i + '-' + j).css("background-color", "#40ff00"); }
+                        else if (res == 0) { $('#' + i + '-' + j).css("background-color", "#ff9933"); }
+                        else { $('#' + i + '-' + j).css("background-color", "#ff3300"); }
+                        $('#' + i + '-' + j).text(Math.abs(res));
+                    }
+                }
+            }
         }
 
         function writeResult(winnerPoint, winerName, loserPoint, loserName) {
