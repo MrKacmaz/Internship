@@ -263,7 +263,7 @@
             userFourName = $('#userFourInput').val();
             numberOfLaps = $('#inputGroupSelect01').val();
             checkedUser();
-            hoverCells(userChecked);
+            // hoverCells(userChecked);
             if (moreChecked != 1) {
                 alert("more than one user");
             } else {
@@ -273,10 +273,11 @@
         }
        
         function hoverCells(selectedUser) {
+            console.log(selectedUser);
 
             if (selectedUser == userOneName) {
-                // alert(selectedUser + " + " + userOneName);
-                // $("#userOneTableInput-1").css("background-color", "#ff3300");
+                alert(selectedUser + " + " + userOneName);
+                $("#userOneTableInput-1").css("background-color", "#ff3300");
 
             }
             if (selectedUser == userTwoName) {
@@ -317,6 +318,7 @@
             $(".pageOne").remove();
             $(".pageTwo").show();
             addUserToTable();
+            hoverCells(userChecked);
         }
 
         function addUserToTable() {
