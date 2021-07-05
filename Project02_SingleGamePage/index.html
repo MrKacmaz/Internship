@@ -215,36 +215,36 @@
                     <thead>
                         <tr>
                             <th id="cross">#</th>
-                            <th id="playerFight1">user1</th>
-                            <th id="playerFight2">user2</th>
-                            <th id="playerFight3">user3</th>
-                            <th id="playerFight4">user4</th>
+                            <th class="playerFight1" id="playerFight1">user1</th>
+                            <th class="playerFight2" id="playerFight2">user2</th>
+                            <th class="playerFight3" id="playerFight3">user3</th>
+                            <th class="playerFight4" id="playerFight4">user4</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th id="playerFight11">user1</th>
+                            <th class="playerFight1" id="playerFight11">user1</th>
                             <th class="mustBeNone"></th>
                             <th id="1-2"></th>
                             <th id="1-3"></th>
                             <th id="1-4"></th>
                         </tr>
                         <tr>
-                            <th id="playerFight22">user2</th>
+                            <th class="playerFight2" id="playerFight22">user2</th>
                             <th id="2-1"></th>
                             <th class="mustBeNone"></th>
                             <th id="2-3"></th>
                             <th id="2-4"></th>
                         </tr>
                         <tr>
-                            <th id="playerFight33">user3</th>
+                            <th class="playerFight3" id="playerFight33">user3</th>
                             <th id="3-1"></th>
                             <th id="3-2"></th>
                             <th class="mustBeNone"></th>
                             <th id="3-4"></th>
                         </tr>
                         <tr>
-                            <th id="playerFight44">user4</th>
+                            <th class="playerFight4" id="playerFight44">user4</th>
                             <th id="4-1"></th>
                             <th id="4-2"></th>
                             <th id="4-3"></th>
@@ -260,17 +260,13 @@
 
 
     <script>
-        var userOneName, userTwoName, userThreeName, userFourName, numberOfLaps, userChecked, moreChecked = 0;
-        var tableTbodyRef = document.getElementById("tableTbody");
+        var userOneName, userTwoName, userThreeName, userFourName, numberOfLaps, userChecked, moreChecked = 0, sumUserOne = 0, sumUserTwo = 0, sumUserThree = 0, sumUserFour = 0, srcUserOne, srcUserTwo, srcUserThree, srcUserFour;
         var userOnePointArray = new Array();
         var userTwoPointArray = new Array();
         var userThreePointArray = new Array();
         var userFourPointArray = new Array();
-
-        var sumUserOne = 0, sumUserTwo = 0, sumUserThree = 0, sumUserFour = 0;
         var fightArray = new Array();
 
-        var srcUserOne, srcUserTwo, srcUserThree, srcUserFour
 
         function showPreviewOne(event) {
             if (event.target.files.length > 0) {
@@ -302,22 +298,15 @@
         }
 
         function userFightNameWriteFunc() {
-            $("#playerFight1").text(userOneName);
-            $("#playerFight2").text(userTwoName);
-            $("#playerFight3").text(userThreeName);
-            $("#playerFight4").text(userFourName);
-            $("#playerFight11").text(userOneName);
-            $("#playerFight22").text(userTwoName);
-            $("#playerFight33").text(userThreeName);
-            $("#playerFight44").text(userFourName);
+            $(".playerFight1").text(userOneName);
+            $(".playerFight2").text(userTwoName);
+            $(".playerFight3").text(userThreeName);
+            $(".playerFight4").text(userFourName);
             $(".mustBeNone").text("X");
         }
 
         function saveBtn() {
-
             $("#result").hide();
-
-
             userOneName = $('#userOneInput').val();
             userTwoName = $('#userTwoInput').val();
             userThreeName = $('#userThreeInput').val();
@@ -325,31 +314,26 @@
             numberOfLaps = $('#inputGroupSelect01').val();
             checkedUser();
             if (moreChecked != 1) {
-                alert("more than one user");
+                alert("no select more than one user");
             } else {
                 deletePageOne();
             }
-
         }
 
         function checkedUser() {
-            let chbx1 = document.getElementById("chbx1");
-            let chbx2 = document.getElementById("chbx2");
-            let chbx3 = document.getElementById("chbx3");
-            let chbx4 = document.getElementById("chbx4");
-            if (chbx1.checked) {
+            if (document.getElementById("chbx1").checked) {
                 userChecked = userOneName;
                 moreChecked++;
             }
-            if (chbx2.checked) {
+            if (document.getElementById("chbx2").checked) {
                 userChecked = userTwoName;
                 moreChecked++;
             }
-            if (chbx3.checked) {
+            if (document.getElementById("chbx3").checked) {
                 userChecked = userThreeName;
                 moreChecked++;
             }
-            if (chbx4.checked) {
+            if (document.getElementById("chbx4").checked) {
                 userChecked = userFourName;
                 moreChecked++;
             }
@@ -363,74 +347,44 @@
         }
 
         function hoverCells(selectedUser) {
+            switch (selectedUser) {
+                case userOneName:
+                    for (let i = 0; i < numberOfLaps; i++) {
+                        if (i % 4 == 0) { $("#userOneTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                        if (i % 4 == 1) { $("#userTwoTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                        if (i % 4 == 2) { $("#userThreeTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                        if (i % 4 == 3) { $("#userFourTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                    }
+                    break;
+                case userTwoName:
+                    for (let i = 0; i < numberOfLaps; i++) {
+                        if (i % 4 == 0) { $("#userTwoTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                        if (i % 4 == 1) { $("#userThreeTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                        if (i % 4 == 2) { $("#userFourTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                        if (i % 4 == 3) { $("#userOneTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                    }
+                    break;
+                case userThreeName:
+                    for (let i = 0; i < numberOfLaps; i++) {
+                        if (i % 4 == 0) { $("#userThreeTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                        if (i % 4 == 1) { $("#userFourTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                        if (i % 4 == 2) { $("#userOneTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                        if (i % 4 == 3) { $("#userTwoTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                    }
+                    break;
+                case userFourName:
+                    for (let i = 0; i < numberOfLaps; i++) {
+                        if (i % 4 == 0) { $("#userFourTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                        if (i % 4 == 1) { $("#userOneTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                        if (i % 4 == 2) { $("#userTwoTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                        if (i % 4 == 3) { $("#userThreeTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                    }
+                    break;
 
-            if (selectedUser == userOneName) {
-                for (let i = 0; i < numberOfLaps; i++) {
-                    if (i % 4 == 0) {
-                        $("#userOneTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
-                    }
-                    if (i % 4 == 1) {
-                        $("#userTwoTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
-                    }
-                    if (i % 4 == 2) {
-                        $("#userThreeTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
-                    }
-                    if (i % 4 == 3) {
-                        $("#userFourTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
-                    }
-                }
+                default:
+                    console.log("Error in hover cells method");
+                    break;
             }
-            if (selectedUser == userTwoName) {
-                for (let i = 0; i < numberOfLaps; i++) {
-                    if (i % 4 == 0) {
-                        $("#userTwoTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
-                    }
-                    if (i % 4 == 1) {
-                        $("#userThreeTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
-                    }
-                    if (i % 4 == 2) {
-                        $("#userFourTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
-                    }
-                    if (i % 4 == 3) {
-                        $("#userOneTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
-                    }
-                }
-
-            }
-            if (selectedUser == userThreeName) {
-                for (let i = 0; i < numberOfLaps; i++) {
-                    if (i % 4 == 0) {
-                        $("#userThreeTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
-                    }
-                    if (i % 4 == 1) {
-                        $("#userFourTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
-                    }
-                    if (i % 4 == 2) {
-                        $("#userOneTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
-                    }
-                    if (i % 4 == 3) {
-                        $("#userTwoTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
-                    }
-                }
-            }
-            if (selectedUser == userFourName) {
-                for (let i = 0; i < numberOfLaps; i++) {
-                    if (i % 4 == 0) {
-                        $("#userFourTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
-                    }
-                    if (i % 4 == 1) {
-                        $("#userOneTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
-                    }
-                    if (i % 4 == 2) {
-                        $("#userTwoTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
-                    }
-                    if (i % 4 == 3) {
-                        $("#userThreeTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
-                    }
-                }
-            }
-
-
         }
 
         function addUserToTable() {
@@ -439,13 +393,9 @@
             $("#player3").append(userThreeName);
             $("#player4").append(userFourName);
 
-
-
             tableUserImageAdd();
 
             userFightNameWriteFunc();
-
-
 
             for (let i = 0; i < numberOfLaps; i++) {
                 $("#tableTbody").append(
@@ -466,16 +416,9 @@
                 $(("#lapCheckInputID-" + (i + 1))).change(function () {
                     var $input = $(this);
                     if ($input.prop("checked") == true) {
-                        // if($("#userOneTableInput-" + (i + 1)).val() $("#userTwoTableInput-" + (i + 1)).val(), $("#userThreeTableInput-" + (i + 1)).val(), $("#userFourTableInput-" + (i + 1)).val(), (i + 1)){
-
-                        // }
                         arrayAdder($("#userOneTableInput-" + (i + 1)).val(), $("#userTwoTableInput-" + (i + 1)).val(), $("#userThreeTableInput-" + (i + 1)).val(), $("#userFourTableInput-" + (i + 1)).val(), (i + 1));
 
-                        $("#lapCheckInputID-" + (i + 1)).prop("disabled", true);
-                        $("#userOneTableInput-" + (i + 1)).prop("disabled", true);
-                        $("#userTwoTableInput-" + (i + 1)).prop("disabled", true);
-                        $("#userThreeTableInput-" + (i + 1)).prop("disabled", true);
-                        $("#userFourTableInput-" + (i + 1)).prop("disabled", true);
+                        $("input").prop("disabled", true);
 
                         $("#lapCheckInputID-" + (i + 2)).prop("disabled", false);
                         $("#userOneTableInput-" + (i + 2)).prop("disabled", false);
@@ -488,18 +431,10 @@
         }
 
         function tableUserImageAdd() {
-
-            let img1InTable = document.getElementById("userOneInTableFile");
-            img1InTable.src = srcUserOne;
-
-            let img2InTable = document.getElementById("userTwoInTableFile")
-            img2InTable.src = srcUserTwo;
-
-            let img3InTable = document.getElementById("userThreeInTableFile")
-            img3InTable.src = srcUserThree;
-
-            let img4InTable = document.getElementById("userFourInTableFile")
-            img4InTable.src = srcUserFour;
+            $("#userOneInTableFile").attr("src", srcUserOne);
+            $("#userTwoInTableFile").attr("src", srcUserTwo);
+            $("#userThreeInTableFile").attr("src", srcUserThree);
+            $("#userFourInTableFile").attr("src", srcUserFour);
         }
 
         function arrayAdder(userOnePoint, userTwoPoint, userThreePoint, userFourPoint, indexes) {
@@ -512,7 +447,7 @@
             userFightFunc();
 
             if (indexes == numberOfLaps) {
-                let sumUserOne = 0, sumUserTwo = 0, sumUserThree = 0, sumUserFour = 0;
+                let sumUserOne = 0, sumUserTwo = 0, sumUserThree = 0, sumUserFour = 0, minName, maxName;
 
                 for (let i = 0; i < numberOfLaps; i++) {
                     sumUserOne += parseInt(userOnePointArray[i]);
@@ -520,11 +455,8 @@
                     sumUserThree += parseInt(userThreePointArray[i]);
                     sumUserFour += parseInt(userFourPointArray[i]);
                 }
-                let sumPointArray = [sumUserOne, sumUserTwo, sumUserThree, sumUserFour];
-
                 let maxVal = Math.max(sumUserOne, sumUserTwo, sumUserThree, sumUserFour);
                 let minVal = Math.min(sumUserOne, sumUserTwo, sumUserThree, sumUserFour);
-                let minName, maxName;
 
                 switch (maxVal) {
                     case sumUserOne:
