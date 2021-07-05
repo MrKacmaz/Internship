@@ -32,10 +32,12 @@
 
 
             <div class="user_1">
+
+                <div class="image-preview">
+                    <img src="" alt="" style="width: 100px;height: 100px;" id="imgUserOne" class="img-fluid">
+                </div>
+
                 <div class="input-group mb-3">
-                    <div class="image-preview">
-                        <img src="" alt="" id="imgUserOne" class="img-fluid">
-                    </div>
                     <div class="input-group-text">
                         <input id="chbx1" class="form-check-input mt-0" type="checkbox"
                             aria-label="Checkbox for following text input">
@@ -47,10 +49,11 @@
             </div>
 
             <div class="user_2">
+                <div class="image-preview">
+                    <img src="" style="width: 100px;height: 100px;" alt="" id="imgUserTwo" class="img-fluid">
+                </div>
                 <div class="input-group mb-3">
-                    <div class="image-preview">
-                        <img src="" alt="" id="imgUserTwo" class="img-fluid">
-                    </div>
+
                     <div class="input-group-text">
                         <input id="chbx2" class="form-check-input mt-0" type="checkbox"
                             aria-label="Checkbox for following text input">
@@ -62,10 +65,11 @@
             </div>
 
             <div class="user_3">
+                <div class="image-preview">
+                    <img src="" style="width: 100px;height: 100px;" alt="" id="imgUserThree" class="img-fluid">
+                </div>
                 <div class="input-group mb-3">
-                    <div class="image-preview">
-                        <img src="" alt="" id="imgUserThree" class="img-fluid">
-                    </div>
+
                     <div class="input-group-text">
                         <input id="chbx3" class="form-check-input mt-0" type="checkbox"
                             aria-label="Checkbox for following text input">
@@ -77,10 +81,11 @@
             </div>
 
             <div class="user_4">
+                <div class="image-preview">
+                    <img src="" style="width: 100px;height: 100px;" alt="" id="imgUserFour" class="img-fluid">
+                </div>
                 <div class="input-group mb-3">
-                    <div class="image-preview">
-                        <img src="" alt="" id="imgUserFour" class="img-fluid">
-                    </div>
+
                     <div class="input-group-text">
                         <input id="chbx4" class="form-check-input mt-0" type="checkbox"
                             aria-label="Checkbox for following text input">
@@ -116,31 +121,49 @@
         <div class="pageTwo" style="display: none;">
             <table class="table caption-top">
 
-                <div class="input-group mb-3">
-                    <img src="" alt="" id="userOneInTableFile" class="img-thumbnail">
-                    <img src="" alt="" id="userTwoInTableFile" class="img-thumbnail">
-                    <img src="" alt="" id="userThreeInTableFile" class="img-thumbnail">
-                    <img src="" alt="" id="userFourInTableFile" class="img-thumbnail">
-                </div>
-
                 <thead class="table-dark">
                     <tr>
                         <th id="laps">Laps</th>
 
-                        <th id="player1">Player1</th>
+                        <th id="player1" class="text-center">
+                            <div class="col-12">
+                                <img src="" alt="" style="width: 100px;height: 100px;" id="userOneInTableFile"
+                                    class="img-thumbnail">
+                            </div>
+                        </th>
 
-                        <th id="player2">Player2</th>
+                        <th id="player2">
+                            <div class="col-12">
+                                <img src="" alt="" style="width: 100px;height: 100px;" id="userTwoInTableFile"
+                                    class="img-thumbnail">
 
-                        <th id="player3">Player3</th>
+                            </div>
+                        </th>
 
-                        <th id="player4">Player4</th>
+                        <th id="player3">
+                            <div class="col-12">
+                                <img src="" alt="" style="width: 100px;height: 100px;" id="userThreeInTableFile"
+                                    class="img-thumbnail">
+
+                            </div>
+                        </th>
+
+                        <th id="player4">
+                            <div class="col-12">
+                                <img src="" alt="" style="width: 100px;height: 100px;" id="userFourInTableFile"
+                                    class="img-thumbnail">
+
+                            </div>
+                        </th>
 
                         <th id="checked">Checked</th>
                     </tr>
                 </thead>
+
                 <tbody id="tableTbody">
 
                 </tbody>
+
                 <tfoot>
                     <tr>
                         <td id="footerSum">SUM</td>
@@ -340,7 +363,6 @@
         }
 
         function hoverCells(selectedUser) {
-            console.log(selectedUser);
 
             if (selectedUser == userOneName) {
                 for (let i = 0; i < numberOfLaps; i++) {
@@ -412,10 +434,10 @@
         }
 
         function addUserToTable() {
-            $("#player1").text(userOneName);
-            $("#player2").text(userTwoName);
-            $("#player3").text(userThreeName);
-            $("#player4").text(userFourName);
+            $("#player1").append(userOneName);
+            $("#player2").append(userTwoName);
+            $("#player3").append(userThreeName);
+            $("#player4").append(userFourName);
 
 
 

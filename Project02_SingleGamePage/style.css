@@ -13,10 +13,10 @@
   padding-right: 15%;
   padding-top: 2%;
 }
-.table{
-    border: 5px solid black;
-    text-align: center;
-    align-items: center;
+.table {
+  border: 5px solid black;
+  text-align: center;
+  align-items: center;
 }
 
 .user_1 {
@@ -46,12 +46,24 @@
   align-content: center;
   margin-left: 70%;
 }
-.numberOfLap{
-    text-align: center;
-    margin-left: 35%;
-    margin-right: 35%;
+.numberOfLap {
+  text-align: center;
+  margin-left: 35%;
+  margin-right: 35%;
 }
-.save{
-    align-items: center;
-    text-align: center;
+.save {
+  align-items: center;
+  text-align: center;
+}
+
+.column {
+  float: left;
+  width: 25%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
