@@ -271,25 +271,6 @@
             }
 
         }
-       
-        function hoverCells(selectedUser) {
-            console.log(selectedUser);
-
-            if (selectedUser == userOneName) {
-                alert(selectedUser + " + " + userOneName);
-                $("#userOneTableInput-1").css("background-color", "#ff3300");
-
-            }
-            if (selectedUser == userTwoName) {
-                // alert(selectedUser + " + " + userTwoName);
-            }
-            if (selectedUser == userThreeName) {
-                // alert(selectedUser + " + " + userThreeName);
-            }
-            if (selectedUser == userFourName) {
-                // alert(selectedUser + " + " + userFourName);
-            }
-        }
 
         function checkedUser() {
             let chbx1 = document.getElementById("chbx1");
@@ -319,6 +300,78 @@
             $(".pageTwo").show();
             addUserToTable();
             hoverCells(userChecked);
+        }
+
+        function hoverCells(selectedUser) {
+            console.log(selectedUser);
+
+            if (selectedUser == userOneName) {
+                for (let i = 0; i < numberOfLaps; i++) {
+                    if (i % 4 == 0) {
+                        $("#userOneTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
+                    }
+                    if (i % 4 == 1) {
+                        $("#userTwoTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
+                    }
+                    if (i % 4 == 2) {
+                        $("#userThreeTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
+                    }
+                    if (i % 4 == 3) {
+                        $("#userFourTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
+                    }
+                }
+            }
+            if (selectedUser == userTwoName) {
+                for (let i = 0; i < numberOfLaps; i++) {
+                    if (i % 4 == 0) {
+                        $("#userTwoTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
+                    }
+                    if (i % 4 == 1) {
+                        $("#userThreeTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
+                    }
+                    if (i % 4 == 2) {
+                        $("#userFourTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
+                    }
+                    if (i % 4 == 3) {
+                        $("#userOneTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
+                    }
+                }
+
+            }
+            if (selectedUser == userThreeName) {
+                for (let i = 0; i < numberOfLaps; i++) {
+                    if (i % 4 == 0) {
+                        $("#userThreeTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
+                    }
+                    if (i % 4 == 1) {
+                        $("#userFourTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
+                    }
+                    if (i % 4 == 2) {
+                        $("#userOneTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
+                    }
+                    if (i % 4 == 3) {
+                        $("#userTwoTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
+                    }
+                }
+            }
+            if (selectedUser == userFourName) {
+                for (let i = 0; i < numberOfLaps; i++) {
+                    if (i % 4 == 0) {
+                        $("#userFourTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
+                    }
+                    if (i % 4 == 1) {
+                        $("#userOneTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
+                    }
+                    if (i % 4 == 2) {
+                        $("#userTwoTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
+                    }
+                    if (i % 4 == 3) {
+                        $("#userThreeTableInput-" + (i + 1)).css("background-color", "#ffe6e6");
+                    }
+                }
+            }
+
+
         }
 
         function addUserToTable() {
@@ -351,7 +404,7 @@
                     var $input = $(this);
                     if ($input.prop("checked") == true) {
                         // if($("#userOneTableInput-" + (i + 1)).val() $("#userTwoTableInput-" + (i + 1)).val(), $("#userThreeTableInput-" + (i + 1)).val(), $("#userFourTableInput-" + (i + 1)).val(), (i + 1)){
-                            
+
                         // }
                         arrayAdder($("#userOneTableInput-" + (i + 1)).val(), $("#userTwoTableInput-" + (i + 1)).val(), $("#userThreeTableInput-" + (i + 1)).val(), $("#userFourTableInput-" + (i + 1)).val(), (i + 1));
 
