@@ -30,62 +30,65 @@
     <div id="allPages">
         <div class="pageOne">
 
+
             <div class="user_1">
-
-                <img id="userOneImage" src="#" alt="user one image" width="100" height="100">
-
                 <div class="input-group mb-3">
+                    <div class="image-preview">
+                        <img src="" alt="" id="imgUserOne" class="img-fluid">
+                    </div>
                     <div class="input-group-text">
                         <input id="chbx1" class="form-check-input mt-0" type="checkbox"
                             aria-label="Checkbox for following text input">
                     </div>
                     <input id="userOneInput" type="text" class="form-control" aria-label="Text input with checkbox">
-                    <input type="file" class="form-control" id="inputGroupFile01">
+                    <input class="form-control form-control-sm" id="formFileSm1" onchange="showPreviewOne(event);"
+                        type="file">
                 </div>
-
             </div>
 
             <div class="user_2">
-                <img id="userSecondImage" src="#" alt="user two image" width="100" height="100">
                 <div class="input-group mb-3">
+                    <div class="image-preview">
+                        <img src="" alt="" id="imgUserTwo" class="img-fluid">
+                    </div>
                     <div class="input-group-text">
                         <input id="chbx2" class="form-check-input mt-0" type="checkbox"
                             aria-label="Checkbox for following text input">
                     </div>
                     <input id="userTwoInput" type="text" class="form-control" aria-label="Text input with checkbox">
-                    <input type="file" class="form-control" id="inputGroupFile02">
+                    <input class="form-control form-control-sm" id="formFileSm2" onchange="showPreviewTwo(event);"
+                        type="file">
                 </div>
-
             </div>
+
             <div class="user_3">
-
-                <img id="userThirdImage" src="#" alt="user three image" width="100" height="100">
-
                 <div class="input-group mb-3">
+                    <div class="image-preview">
+                        <img src="" alt="" id="imgUserThree" class="img-fluid">
+                    </div>
                     <div class="input-group-text">
                         <input id="chbx3" class="form-check-input mt-0" type="checkbox"
                             aria-label="Checkbox for following text input">
                     </div>
                     <input id="userThreeInput" type="text" class="form-control" aria-label="Text input with checkbox">
-                    <input type="file" class="form-control" id="inputGroupFile03">
-
-
+                    <input class="form-control form-control-sm" id="formFileSm3" onchange="showPreviewThree(event);"
+                        type="file">
                 </div>
-
             </div>
+
             <div class="user_4">
-
-                <img id="userFourthImage" src="#" alt="user four image" width="100" height="100">
-
                 <div class="input-group mb-3">
+                    <div class="image-preview">
+                        <img src="" alt="" id="imgUserFour" class="img-fluid">
+                    </div>
                     <div class="input-group-text">
                         <input id="chbx4" class="form-check-input mt-0" type="checkbox"
                             aria-label="Checkbox for following text input">
                     </div>
                     <input id="userFourInput" type="text" class="form-control" aria-label="Text input with checkbox">
-                    <input type="file" class="form-control" id="inputGroupFile04">
+                    <input class="form-control form-control-sm" id="formFileSm4" onchange="showPreviewFour(event);"
+                        type="file">
                 </div>
-
             </div>
 
             <div class="numberOfLap">
@@ -112,13 +115,26 @@
 
         <div class="pageTwo" style="display: none;">
             <table class="table caption-top">
+
+                <div class="input-group mb-3">
+                    <img src="" alt="" id="userOneInTableFile" class="img-thumbnail">
+                    <img src="" alt="" id="userTwoInTableFile" class="img-thumbnail">
+                    <img src="" alt="" id="userThreeInTableFile" class="img-thumbnail">
+                    <img src="" alt="" id="userFourInTableFile" class="img-thumbnail">
+                </div>
+
                 <thead class="table-dark">
                     <tr>
                         <th id="laps">Laps</th>
+
                         <th id="player1">Player1</th>
+
                         <th id="player2">Player2</th>
+
                         <th id="player3">Player3</th>
+
                         <th id="player4">Player4</th>
+
                         <th id="checked">Checked</th>
                     </tr>
                 </thead>
@@ -231,14 +247,36 @@
         var sumUserOne = 0, sumUserTwo = 0, sumUserThree = 0, sumUserFour = 0;
         var fightArray = new Array();
 
-        window.addEventListener('load', function () {
-            document.querySelector('input[type="file"]').addEventListener('change', function () {
-                if (this.files && this.files[0]) {
-                    var img = document.querySelector('img');
-                    img.src = URL.createObjectURL(this.files[0]);
-                }
-            });
-        });
+        var srcUserOne, srcUserTwo, srcUserThree, srcUserFour
+
+        function showPreviewOne(event) {
+            if (event.target.files.length > 0) {
+                srcUserOne = URL.createObjectURL(event.target.files[0]);
+                let preview = document.getElementById("imgUserOne");
+                preview.src = srcUserOne;
+            }
+        }
+        function showPreviewTwo(event) {
+            if (event.target.files.length > 0) {
+                srcUserTwo = URL.createObjectURL(event.target.files[0]);
+                let preview = document.getElementById("imgUserTwo");
+                preview.src = srcUserTwo;
+            }
+        }
+        function showPreviewThree(event) {
+            if (event.target.files.length > 0) {
+                srcUserThree = URL.createObjectURL(event.target.files[0]);
+                let preview = document.getElementById("imgUserThree");
+                preview.src = srcUserThree;
+            }
+        }
+        function showPreviewFour(event) {
+            if (event.target.files.length > 0) {
+                srcUserFour = URL.createObjectURL(event.target.files[0]);
+                let preview = document.getElementById("imgUserFour");
+                preview.src = srcUserFour;
+            }
+        }
 
         function userFightNameWriteFunc() {
             $("#playerFight1").text(userOneName);
@@ -263,7 +301,6 @@
             userFourName = $('#userFourInput').val();
             numberOfLaps = $('#inputGroupSelect01').val();
             checkedUser();
-            // hoverCells(userChecked);
             if (moreChecked != 1) {
                 alert("more than one user");
             } else {
@@ -380,6 +417,10 @@
             $("#player3").text(userThreeName);
             $("#player4").text(userFourName);
 
+
+
+            tableUserImageAdd();
+
             userFightNameWriteFunc();
 
 
@@ -422,6 +463,21 @@
                     }
                 }).change();
             }
+        }
+
+        function tableUserImageAdd() {
+
+            let img1InTable = document.getElementById("userOneInTableFile");
+            img1InTable.src = srcUserOne;
+
+            let img2InTable = document.getElementById("userTwoInTableFile")
+            img2InTable.src = srcUserTwo;
+
+            let img3InTable = document.getElementById("userThreeInTableFile")
+            img3InTable.src = srcUserThree;
+
+            let img4InTable = document.getElementById("userFourInTableFile")
+            img4InTable.src = srcUserFour;
         }
 
         function arrayAdder(userOnePoint, userTwoPoint, userThreePoint, userFourPoint, indexes) {
