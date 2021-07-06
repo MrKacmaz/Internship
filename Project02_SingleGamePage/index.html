@@ -306,6 +306,8 @@
         }
 
         function saveBtn() {
+
+
             $("#result").hide();
             userOneName = $('#userOneInput').val();
             userTwoName = $('#userTwoInput').val();
@@ -314,8 +316,11 @@
             numberOfLaps = $('#inputGroupSelect01').val();
             checkedUser();
             if (moreChecked != 1) {
-                alert("no select more than one user");
+                swal("Error!", "No select more than one user!", "warning");
+
             } else {
+                swal("The game has been started!", "You clicked the button for join the game!", "success");
+
                 deletePageOne();
             }
         }
@@ -416,6 +421,9 @@
                 $(("#lapCheckInputID-" + (i + 1))).change(function () {
                     var $input = $(this);
                     if ($input.prop("checked") == true) {
+
+                        swal("Lap is over!", "You clicked the button for the next lap!", "success");
+
                         arrayAdder($("#userOneTableInput-" + (i + 1)).val(), $("#userTwoTableInput-" + (i + 1)).val(), $("#userThreeTableInput-" + (i + 1)).val(), $("#userFourTableInput-" + (i + 1)).val(), (i + 1));
 
                         $("input").prop("disabled", true);
@@ -447,6 +455,9 @@
             userFightFunc();
 
             if (indexes == numberOfLaps) {
+
+                swal("Game is over!", "Click the button for result", "success");
+
                 let sumUserOne = 0, sumUserTwo = 0, sumUserThree = 0, sumUserFour = 0, minName, maxName;
 
                 for (let i = 0; i < numberOfLaps; i++) {
