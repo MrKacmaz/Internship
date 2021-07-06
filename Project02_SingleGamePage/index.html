@@ -355,34 +355,34 @@
             switch (selectedUser) {
                 case userOneName:
                     for (let i = 0; i < numberOfLaps; i++) {
-                        if (i % 4 == 0) { $("#userOneTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
-                        if (i % 4 == 1) { $("#userTwoTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
-                        if (i % 4 == 2) { $("#userThreeTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
-                        if (i % 4 == 3) { $("#userFourTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                        if (i % 4 == 0) { $("#userOneTableInput-" + (i + 1)).css("border-color", "red"); }
+                        if (i % 4 == 1) { $("#userTwoTableInput-" + (i + 1)).css("border-color", "red"); }
+                        if (i % 4 == 2) { $("#userThreeTableInput-" + (i + 1)).css("border-color", "red"); }
+                        if (i % 4 == 3) { $("#userFourTableInput-" + (i + 1)).css("border-color", "red"); }
                     }
                     break;
                 case userTwoName:
                     for (let i = 0; i < numberOfLaps; i++) {
-                        if (i % 4 == 0) { $("#userTwoTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
-                        if (i % 4 == 1) { $("#userThreeTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
-                        if (i % 4 == 2) { $("#userFourTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
-                        if (i % 4 == 3) { $("#userOneTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                        if (i % 4 == 0) { $("#userTwoTableInput-" + (i + 1)).css("border-color", "red"); }
+                        if (i % 4 == 1) { $("#userThreeTableInput-" + (i + 1)).css("border-color", "red"); }
+                        if (i % 4 == 2) { $("#userFourTableInput-" + (i + 1)).css("border-color", "red"); }
+                        if (i % 4 == 3) { $("#userOneTableInput-" + (i + 1)).css("border-color", "red"); }
                     }
                     break;
                 case userThreeName:
                     for (let i = 0; i < numberOfLaps; i++) {
-                        if (i % 4 == 0) { $("#userThreeTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
-                        if (i % 4 == 1) { $("#userFourTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
-                        if (i % 4 == 2) { $("#userOneTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
-                        if (i % 4 == 3) { $("#userTwoTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                        if (i % 4 == 0) { $("#userThreeTableInput-" + (i + 1)).css("border-color", "red"); }
+                        if (i % 4 == 1) { $("#userFourTableInput-" + (i + 1)).css("border-color", "red"); }
+                        if (i % 4 == 2) { $("#userOneTableInput-" + (i + 1)).css("border-color", "red"); }
+                        if (i % 4 == 3) { $("#userTwoTableInput-" + (i + 1)).css("border-color", "red"); }
                     }
                     break;
                 case userFourName:
                     for (let i = 0; i < numberOfLaps; i++) {
-                        if (i % 4 == 0) { $("#userFourTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
-                        if (i % 4 == 1) { $("#userOneTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
-                        if (i % 4 == 2) { $("#userTwoTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
-                        if (i % 4 == 3) { $("#userThreeTableInput-" + (i + 1)).css("background-color", "#ffe6e6"); }
+                        if (i % 4 == 0) { $("#userFourTableInput-" + (i + 1)).css("border-color", "red"); }
+                        if (i % 4 == 1) { $("#userOneTableInput-" + (i + 1)).css("border-color", "red"); }
+                        if (i % 4 == 2) { $("#userTwoTableInput-" + (i + 1)).css("border-color", "red"); }
+                        if (i % 4 == 3) { $("#userThreeTableInput-" + (i + 1)).css("border-color", "red"); }
                     }
                     break;
 
@@ -423,8 +423,13 @@
                     if ($input.prop("checked") == true) {
 
                         swal("Lap is over!", "You clicked the button for the next lap!", "success");
+                        let oneI, twoI, threeI, fourI;
+                        (isNaN(parseInt($("#userOneTableInput-" + (i + 1)).val()))) ? oneI = (parseInt(0)) : oneI = parseInt($("#userOneTableInput-" + (i + 1)).val());
+                        (isNaN(parseInt($("#userTwoTableInput-" + (i + 1)).val()))) ? twoI = (parseInt(0)) : twoI = parseInt($("#userTwoTableInput-" + (i + 1)).val());
+                        (isNaN(parseInt($("#userThreeTableInput-" + (i + 1)).val()))) ? threeI = (parseInt(0)) : threeI = parseInt($("#userThreeTableInput-" + (i + 1)).val());
+                        (isNaN(parseInt($("#userFourTableInput-" + (i + 1)).val()))) ? fourI = (parseInt(0)) : fourI = parseInt($("#userFourTableInput-" + (i + 1)).val());
 
-                        arrayAdder($("#userOneTableInput-" + (i + 1)).val(), $("#userTwoTableInput-" + (i + 1)).val(), $("#userThreeTableInput-" + (i + 1)).val(), $("#userFourTableInput-" + (i + 1)).val(), (i + 1));
+                        arrayAdder(oneI, twoI, threeI, fourI, (i + 1));
 
                         $("input").prop("disabled", true);
 
