@@ -64,14 +64,11 @@
                     <th scope="col">Coin Rate</th>
                     <th scope="col">Piece</th>
                     <th scope="col">Total</th>
+                    <th scope="col">Operations</th>
                 </tr>
             </thead>
-            <tbody>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
+            <tbody id="tbody">
+
             </tbody>
 
             <tfoot>
@@ -80,8 +77,9 @@
                     <td>0</td>
                     <td>0</td>
                     <td>0</td>
+                    <td>0</td>
                     <td>
-                        <button type="button" class="btn btn-primary">Buy</button>
+                        <button type="button" class="btn btn-primary" onclick="buyCoinsBtn()">Buy</button>
                     </td>
                 </tr>
             </tfoot>
@@ -91,8 +89,9 @@
 
 
     <script>
-        var selectedCoinName, selectedCoinRate, piece, currentSpending;
+        var selectedCoinName, selectedCoinRate, piece, currentSpending, counter = 0, claimAllCoinMoney = 0;
         var totalCoinsArray = new Array();
+        var btcFinal, etcFinal, adaFinal;
 
         $(document).ready(function () {
             showAllCoin();
@@ -102,10 +101,10 @@
 
             // GET BTC
             $.ajax({
-                url: 'https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7',
+                url: 'https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=67D95600-D20A-477C-BFB3-035151CD7855',
                 type: 'GET',
                 headers: {
-                    'apikey': '2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7'
+                    'apikey': '67D95600-D20A-477C-BFB3-035151CD7855'
                 },
                 data: {
 
@@ -121,15 +120,16 @@
                         id: data.asset_id_base,
                         name: data.asset_id_base
                     }));
+                    btcFinal = data.rate;
                 }
             });
 
             // GET ETC
             $.ajax({
-                url: 'https://rest.coinapi.io/v1/exchangerate/ETC/USD?apikey=2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7',
+                url: 'https://rest.coinapi.io/v1/exchangerate/ETC/USD?apikey=67D95600-D20A-477C-BFB3-035151CD7855',
                 type: 'GET',
                 headers: {
-                    'apikey': '2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7'
+                    'apikey': '67D95600-D20A-477C-BFB3-035151CD7855'
                 },
                 data: {
 
@@ -145,15 +145,16 @@
                         id: data.asset_id_base,
                         name: data.asset_id_base
                     }));
+                    etcFinal = data.rate;
                 }
             });
 
             // GET ADA
             $.ajax({
-                url: 'https://rest.coinapi.io/v1/exchangerate/ADA/USD?apikey=2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7',
+                url: 'https://rest.coinapi.io/v1/exchangerate/ADA/USD?apikey=67D95600-D20A-477C-BFB3-035151CD7855',
                 type: 'GET',
                 headers: {
-                    'apikey': '2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7'
+                    'apikey': '67D95600-D20A-477C-BFB3-035151CD7855'
                 },
                 data: {
 
@@ -169,6 +170,7 @@
                         id: data.asset_id_base,
                         name: data.asset_id_base
                     }));
+                    adaFinal = data.rate;
                 }
             });
         }
@@ -186,14 +188,86 @@
         function buyOperation() {
             piece = $("#pieceInput").val();
             currentSpending = piece * selectedCoinRate;
-            let currentCoinArray = [selectedCoinName, currentSpending, piece];
+            var currentCoinArray = [selectedCoinName, selectedCoinRate, piece, currentSpending];
             totalCoinsArray.push(currentCoinArray);
             clearInputs();
+            addRowToTable(currentCoinArray);
         }
 
         function clearInputs() {
             $("input").val("");
             $("input").attr("disabled", false);
+        }
+
+        function addRowToTable(currentCoinArray) {
+            claimAllCoinMoney += parseInt(currentCoinArray[3]);
+            $("#tbody").append(
+                '<tr id = tr-' + counter + '>' +
+                '<td id= ' + counter + '>' + (counter + 1) + '</td>' +
+                '<td id= ' + counter + '>' + currentCoinArray[0] + '</td>' +
+                '<td id= ' + counter + '>' + parseFloat(currentCoinArray[1]).toFixed(2) + '</td>' +
+                '<td id= ' + counter + '>' + currentCoinArray[2] + '</td>' +
+                '<td id= ' + counter + '>' + parseFloat(currentCoinArray[3]).toFixed(2) + '</td>' +
+                '<td id= sell-' + counter + '>' + '<button type="button" class="btn btn-warning" onclick="coinSellBtn(this)">Sell</button>' + '</td>' +
+                '</tr>'
+            );
+            counter++;
+        }
+
+        function buyCoinsBtn() {
+            swal("Payment Successful!", "Thank you for using MrKacmaz Coin System!", "success");
+        }
+
+        function coinSellBtn(uniqueCounter) {
+            swal({
+                title: "Are you sure?",
+                text: "Once you sell, you will not be able to recover this coin!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        extractionProcess(uniqueCounter);
+
+                        // delet selected row
+                        let rowInSweetAlert = uniqueCounter.parentNode.parentNode;
+                        rowInSweetAlert.parentNode.removeChild(rowInSweetAlert);
+                        swal("Successful! Your coin has been sold!", {
+                            icon: "success",
+                        });
+                    } else {
+                        swal("Your coin is safe!");
+                    }
+                });
+        }
+
+        function extractionProcess(uniqueCounter) {
+            showAllCoin();
+            // the selected amount is subtracted from all money 
+            let selectedCoinSellPrice = $(uniqueCounter).parent().parent().children().eq(4).text();
+            let selectedCoinSellPiece = $(uniqueCounter).parent().parent().children().eq(3).text();
+            let selectedCoinSellName = $(uniqueCounter).parent().parent().children().eq(1).text();
+
+            switch (selectedCoinSellName) {
+
+                case "BTC":
+                    claimAllCoinMoney = claimAllCoinMoney - (btcFinal * selectedCoinSellPiece);
+                    break;
+
+                case "ETC":
+                    claimAllCoinMoney -= (etcFinal * selectedCoinSellPiece);
+                    break;
+
+                case "ADA":
+                    claimAllCoinMoney -= (adaFinal * selectedCoinSellPiece);
+                    break;
+
+                default:
+                    swal("ERROR!", "extractionProcess() switch case error", "error");
+                    break;
+            }
         }
     </script>
 </body>
