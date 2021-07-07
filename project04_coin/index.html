@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+        integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+        integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- Sweet alert src -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+
+<body>
+    <div class="buy">
+
+        <div class="select">
+
+            <select id="coinSelectBox" class="form-select" aria-label="Default select example">
+                <option selected>Open Coin Menu</option>
+            </select>
+
+        </div>
+
+        <div class="valueInput">
+
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Rate</span>
+                <input id="rateInput" type="text" class="form-control">
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Piece</span>
+                <input id="pieceInput" type="text" class="form-control">
+            </div>
+
+        </div>
+
+        <div class="buttons">
+            <div class="buyButton">
+                <button type="button" class="btn btn-primary" onclick="buyOperation()">Buy</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="showTable">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Coin name</th>
+                    <th scope="col">Coin Rate</th>
+                    <th scope="col">Piece</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td>SUM</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>
+                        <button type="button" class="btn btn-primary">Buy</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+
+
+    <script>
+        var selectedCoinName, selectedCoinRate, piece, currentSpending;
+        var totalCoinsArray = new Array();
+
+        $(document).ready(function () {
+            showAllCoin();
+        });
+
+        function showAllCoin() {
+
+            // GET BTC
+            $.ajax({
+                url: 'https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7',
+                type: 'GET',
+                headers: {
+                    'apikey': '2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7'
+                },
+                data: {
+
+                },
+                beforeSend: function () {
+
+                },
+                success: function (data) {
+                    console.log("BTC = " + data.rate);
+                    $('#coinSelectBox').append($('<option >', {
+                        value: data.rate,
+                        text: data.asset_id_base,
+                        id: data.asset_id_base,
+                        name: data.asset_id_base
+                    }));
+                }
+            });
+
+            // GET ETC
+            $.ajax({
+                url: 'https://rest.coinapi.io/v1/exchangerate/ETC/USD?apikey=2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7',
+                type: 'GET',
+                headers: {
+                    'apikey': '2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7'
+                },
+                data: {
+
+                },
+                beforeSend: function () {
+
+                },
+                success: function (data) {
+                    console.log("ETC = " + data.rate);
+                    $('#coinSelectBox').append($('<option >', {
+                        value: data.rate,
+                        text: data.asset_id_base,
+                        id: data.asset_id_base,
+                        name: data.asset_id_base
+                    }));
+                }
+            });
+
+            // GET ADA
+            $.ajax({
+                url: 'https://rest.coinapi.io/v1/exchangerate/ADA/USD?apikey=2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7',
+                type: 'GET',
+                headers: {
+                    'apikey': '2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7'
+                },
+                data: {
+
+                },
+                beforeSend: function () {
+
+                },
+                success: function (data) {
+                    console.log("ADA = " + data.rate);
+                    $('#coinSelectBox').append($('<option >', {
+                        value: data.rate,
+                        text: data.asset_id_base,
+                        id: data.asset_id_base,
+                        name: data.asset_id_base
+                    }));
+                }
+            });
+        }
+
+
+        // Select box operations
+        $('#coinSelectBox').change(function () {
+            $("#rateInput").val($(this).val());
+            $("#rateInput").attr("disabled", true);
+            selectedCoinRate = $(this).val();
+            selectedCoinName = $(this).find('option:selected').attr("name");
+        });
+
+
+        function buyOperation() {
+            piece = $("#pieceInput").val();
+            currentSpending = piece * selectedCoinRate;
+            let currentCoinArray = [selectedCoinName, currentSpending, piece];
+            totalCoinsArray.push(currentCoinArray);
+            clearInputs();
+        }
+
+        function clearInputs() {
+            $("input").val("");
+            $("input").attr("disabled", false);
+        }
+    </script>
+</body>
+
+</html>
