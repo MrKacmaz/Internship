@@ -19,72 +19,163 @@
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <!-- Sweet alert src -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="buy">
 
-        <div class="select">
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path
+                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+        </symbol>
+    </svg>
 
-            <select id="coinSelectBox" class="form-select" aria-label="Default select example">
-                <option selected>Open Coin Menu</option>
-            </select>
-
-        </div>
-
-        <div class="valueInput">
-
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Rate</span>
-                <input id="rateInput" type="text" class="form-control">
+    <div class="showCoinImage">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col text-center coin">
+                    <img src="https://bitcoin.org/img/icons/opengraph.png?1625145073" alt="BTC COIN" height="100px"
+                        width="100px">
+                    <p class="text-center">BIT COIN</p>
+                    <p id="btcRateP" class="text-center"></p>
+                </div>
+                <div class="col text-center coin">
+                    <img src="https://static.coincost.net/logo/cryptocurrency/ethereum-classic.png" alt="ETC COIN"
+                        height="100px" width="100px">
+                    <p class="text-center">ETHEREUM</p>
+                    <p id="etcRateP" class="text-center"></p>
+                </div>
+                <div class="col text-center coin">
+                    <img src="https://kriptomaymunu.com/wp-content/uploads/2021/05/cardano-ada-coin-icon.png"
+                        alt="ADA COIN" height="100px" width="100px">
+                    <p class="text-center">ADA COIN</p>
+                    <p id="adaRateP" class="text-center"></p>
+                </div>
             </div>
-
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Piece</span>
-                <input id="pieceInput" type="text" class="form-control">
-            </div>
-
         </div>
-
-        <div class="buttons">
-            <div class="buyButton">
-                <button type="button" class="btn btn-primary" onclick="buyOperation()">Buy</button>
-            </div>
-        </div>
-
     </div>
 
-    <div class="showTable">
+    <div class="modalDiv">
+        <!-- Button trigger modal -->
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button type="button" class="btn btn-outline-success btn-lg" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop">
+                Buy Coin
+            </button>
+        </div>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Coin name</th>
-                    <th scope="col">Coin Rate</th>
-                    <th scope="col">Piece</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Operations</th>
-                </tr>
-            </thead>
-            <tbody id="tbody">
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">MrKacmaz Coin Purchase System</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Modal Body Page Start -->
+                        <div class="buy">
 
-            </tbody>
+                            <div class="select">
+                                <div class="input-group mb-3">
+                                    <select id="coinSelectBox" class="form-select">
+                                        <option selected>Open Coin Menu</option>
+                                    </select>
+                                </div>
+                            </div>
 
-            <tfoot>
-                <tr>
-                    <td>SUM</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" onclick="buyCoinsBtn()">Buy</button>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+                            <div class="valueInput">
 
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Rate</span>
+                                    <input id="rateInput" type="text" class="form-control">
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Piece</span>
+                                    <input id="pieceInput" type="text" class="form-control">
+
+                                    <span class="input-group-text" id="basic-addon1">Money</span>
+                                    <input id="pieceInput" type="text" class="form-control">
+
+                                </div>
+                                <div class="alert alert-primary d-flex align-items-center" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
+                                        aria-label="Info:">
+                                        <use xlink:href="#info-fill" />
+                                    </svg>
+                                    <div>
+                                        You can buy coin with number of pieces or amount of money
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- Modal Body Page End -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="buyOperation()">Buy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordingDiv">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed acrdBtn" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        <p>Coin Wallet</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse acrdDiv" aria-labelledby="flush-headingOne"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <!-- Table Body Start -->
+                        <div class="showTable">
+
+                            <table class="table table-dark table-striped table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Coin name</th>
+                                        <th scope="col">Coin Rate</th>
+                                        <th scope="col">Piece</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Operations</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody">
+
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <td>SUM</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary"
+                                                onclick="buyCoinsBtn()">Buy</button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                        <!-- Table Body End -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -97,7 +188,7 @@
             showAllCoin();
         });
 
-        function showAllCoin() {
+        function AshowAllCoin() {
 
             // GET BTC
             $.ajax({
@@ -120,6 +211,7 @@
                         id: data.asset_id_base,
                         name: data.asset_id_base
                     }));
+                    $("#btcRateP").text("$ " + data.rate);
                     btcFinal = data.rate;
                 }
             });
@@ -145,6 +237,7 @@
                         id: data.asset_id_base,
                         name: data.asset_id_base
                     }));
+                    $("#etcRateP").text("$ " + data.rate);
                     etcFinal = data.rate;
                 }
             });
@@ -170,6 +263,7 @@
                         id: data.asset_id_base,
                         name: data.asset_id_base
                     }));
+                    $("#adaRateP").text("$ " + data.rate);
                     adaFinal = data.rate;
                 }
             });
