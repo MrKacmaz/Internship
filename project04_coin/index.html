@@ -126,6 +126,7 @@
     </div>
 
     <div class="accordingDiv">
+
         <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingOne">
@@ -134,8 +135,44 @@
                         <p>Coin Wallet</p>
                     </button>
                 </h2>
-                <div id="flush-collapseOne" class="accordion-collapse collapse acrdDiv" aria-labelledby="flush-headingOne"
-                    data-bs-parent="#accordionFlushExample">
+                <div id="flush-collapseOne" class="accordion-collapse collapse acrdDiv"
+                    aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <!-- Table Body Start -->
+                        <div class="showTable">
+
+                            <table class="table table-dark table-striped table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Coin name</th>
+                                        <th scope="col">Coin Rate</th>
+                                        <th scope="col">Piece</th>
+                                        <th scope="col">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody">
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- Table Body End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion accordion-flush" id="accordionFlushSell">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed acrdBtn" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        <p>Operations</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse acrdDiv"
+                    aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushSell">
                     <div class="accordion-body">
                         <!-- Table Body Start -->
                         <div class="showTable">
@@ -151,17 +188,17 @@
                                         <th scope="col">Operations</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tbody">
+                                <tbody id="tbodyOperation">
 
                                 </tbody>
 
                                 <tfoot>
                                     <tr>
                                         <td>SUM</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                         <td>
                                             <button type="button" class="btn btn-primary"
                                                 onclick="buyCoinsBtn()">Buy</button>
@@ -176,19 +213,53 @@
                 </div>
             </div>
         </div>
+
+        <div class="accordion accordion-flush" id="accordionFlushProfit">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed acrdBtn" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        <p>Profit</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse acrdDiv"
+                    aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushProfit">
+                    <div class="accordion-body">
+                        <!--  -->
+                        <table class="table table-dark table-striped table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Coin name</th>
+                                    <th>Coin Buy Rate</th>
+                                    <th>Coin Buy Piece</th>
+                                    <th>Coin Sell Rate</th>
+                                    <th>Coin Sell Piece</th>
+                                    <th>Profit</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyProfit"></tbody>
+                        </table>
+                        <!--  -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 
     <script>
-        var selectedCoinName, selectedCoinRate, piece, currentSpending, counter = 0, claimAllCoinMoney = 0;
+        var selectedCoinName, selectedCoinRate, piece, currentSpending, counter = 0, counterProfit = 0, claimAllCoinMoney = 0;
         var totalCoinsArray = new Array();
+        var btcFirst, etcFirst, adaFirst;
         var btcFinal, etcFinal, adaFinal;
 
         $(document).ready(function () {
             showAllCoin();
         });
 
-        function AshowAllCoin() {
+        function showAllCoin() {
 
             // GET BTC
             $.ajax({
@@ -212,6 +283,9 @@
                         name: data.asset_id_base
                     }));
                     $("#btcRateP").text("$ " + data.rate);
+                    if (isNaN(btcFirst)) {
+                        btcFirst = data.rate;
+                    }
                     btcFinal = data.rate;
                 }
             });
@@ -238,6 +312,9 @@
                         name: data.asset_id_base
                     }));
                     $("#etcRateP").text("$ " + data.rate);
+                    if (isNaN(etcFirst)) {
+                        etcFirst = data.rate;
+                    }
                     etcFinal = data.rate;
                 }
             });
@@ -264,11 +341,13 @@
                         name: data.asset_id_base
                     }));
                     $("#adaRateP").text("$ " + data.rate);
+                    if (isNaN(adaFirst)) {
+                        adaFirst = data.rate;
+                    }
                     adaFinal = data.rate;
                 }
             });
         }
-
 
         // Select box operations
         $('#coinSelectBox').change(function () {
@@ -294,8 +373,20 @@
         }
 
         function addRowToTable(currentCoinArray) {
+
             claimAllCoinMoney += parseInt(currentCoinArray[3]);
+
             $("#tbody").append(
+                '<tr id = tr-' + counter + '>' +
+                '<td id= ' + counter + '>' + (counter + 1) + '</td>' +
+                '<td id= ' + counter + '>' + currentCoinArray[0] + '</td>' +
+                '<td id= ' + counter + '>' + parseFloat(currentCoinArray[1]).toFixed(2) + '</td>' +
+                '<td id= ' + counter + '>' + currentCoinArray[2] + '</td>' +
+                '<td id= ' + counter + '>' + parseFloat(currentCoinArray[3]).toFixed(2) + '</td>' +
+                '</tr>'
+            );
+
+            $("#tbodyOperation").append(
                 '<tr id = tr-' + counter + '>' +
                 '<td id= ' + counter + '>' + (counter + 1) + '</td>' +
                 '<td id= ' + counter + '>' + currentCoinArray[0] + '</td>' +
@@ -305,6 +396,7 @@
                 '<td id= sell-' + counter + '>' + '<button type="button" class="btn btn-warning" onclick="coinSellBtn(this)">Sell</button>' + '</td>' +
                 '</tr>'
             );
+
             counter++;
         }
 
@@ -339,6 +431,7 @@
 
         function extractionProcess(uniqueCounter) {
             showAllCoin();
+
             // the selected amount is subtracted from all money 
             let selectedCoinSellPrice = $(uniqueCounter).parent().parent().children().eq(4).text();
             let selectedCoinSellPiece = $(uniqueCounter).parent().parent().children().eq(3).text();
@@ -348,20 +441,44 @@
 
                 case "BTC":
                     claimAllCoinMoney = claimAllCoinMoney - (btcFinal * selectedCoinSellPiece);
+                    // profit ve coinBuyPiece düzenle, onlar yok !!!!!!!!!
+                    addRowInProfit(selectedCoinSellName, btcFirst, coinBuyPiece, btcFinal, selectedCoinSellPiece, profit);
                     break;
 
                 case "ETC":
-                    claimAllCoinMoney -= (etcFinal * selectedCoinSellPiece);
+                    claimAllCoinMoney = claimAllCoinMoney - (etcFinal * selectedCoinSellPiece);
+                    // profit ve coinBuyPiece düzenle, onlar yok !!!!!!!!!
+                    addRowInProfit(selectedCoinSellName, btcFirst, coinBuyPiece, btcFinal, selectedCoinSellPiece, profit);
                     break;
 
                 case "ADA":
-                    claimAllCoinMoney -= (adaFinal * selectedCoinSellPiece);
+                    claimAllCoinMoney = claimAllCoinMoney - (adaFinal * selectedCoinSellPiece);
+                    // profit ve coinBuyPiece düzenle, onlar yok !!!!!!!!!
+                    addRowInProfit(selectedCoinSellName, btcFirst, coinBuyPiece, btcFinal, selectedCoinSellPiece, profit);
                     break;
 
                 default:
                     swal("ERROR!", "extractionProcess() switch case error", "error");
                     break;
             }
+
+
+        }
+
+        function addRowInProfit(coinName, coinBuyRate, coinBuyPiece, CoinSellRate, CoinSellPiece, profit) {
+            alert("addRowInProfit");
+            $("#tbodyProfit").append(
+                '<tr id = trProfit-' + counterProfit + '>' +
+                '<td id = tdProfitCounter-' + counterProfit + '>' + (counterProfit + 1) + '</td>' +
+                '<td id = tdProfitCN-' + counterProfit + '>' + coinName + '</td>' +
+                '<td id = tdProfitCBR-' + counterProfit + '>' + coinBuyRate + '</td>' +
+                '<td id = tdProfitCBP-' + counterProfit + '>' + coinBuyPiece + '</td>' +
+                '<td id = tdProfitCSR-' + counterProfit + '>' + CoinSellRate + '</td>' +
+                '<td id = tdProfitCSP-' + counterProfit + '>' + CoinSellPiece + '</td>' +
+                '<td id = tdProfitP-' + counterProfit + '>' + profit + '</td>' +
+                '</tr>'
+            );
+            counterProfit++;
         }
     </script>
 </body>
