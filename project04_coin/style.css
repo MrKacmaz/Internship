@@ -1,5 +1,5 @@
 body {
-  background-color: #212529 !important;
+  background-color: rgba(33, 37, 41, 1) !important;
 }
 p {
   color: white;
@@ -24,4 +24,18 @@ p {
 }
 .acrdDiv {
   background-color: #212529da !important;
+}
+.ownCoin {
+  background-color: rgba(102, 51, 153, 0.356);
+  margin-left: 5rem;
+  margin-right: 5rem;
+
+}
+.ownCoinP {
+  color: greenyellow;
+}
+.coinsRate {
+  background-color: #16191b6c;
+  margin-left: 5rem;
+  margin-right: 5rem;
 }
