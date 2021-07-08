@@ -95,10 +95,10 @@
 
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Piece</span>
-                                    <input id="pieceInput" type="text" class="form-control">
+                                    <input id="pieceInput" type="number" class="form-control">
 
                                     <span class="input-group-text" id="basic-addon1">Money</span>
-                                    <input id="pieceInput" type="text" class="form-control">
+                                    <input id="moneyInput" type="number" class="form-control">
 
                                 </div>
                                 <div class="alert alert-primary d-flex align-items-center" role="alert">
@@ -250,10 +250,15 @@
 
 
     <script>
-        var selectedCoinName, selectedCoinRate, piece, currentSpending, counter = 0, counterProfit = 0, claimAllCoinMoney = 0;
+        var selectedCoinName, selectedCoinRate, piece, money, currentSpending, counter = 0, counterProfit = 0, claimAllCoinMoney = 0;
         var totalCoinsArray = new Array();
         var btcFirst, etcFirst, adaFirst;
         var btcFinal, etcFinal, adaFinal;
+
+        var etcHtml = 'https://rest.coinapi.io/v1/exchangerate/ETC/USD?apikey=96314490-9818-4E6B-A2E4-FED6D87E1858';
+        var btcHtml = 'https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=96314490-9818-4E6B-A2E4-FED6D87E1858';
+        var adaHtml = 'https://rest.coinapi.io/v1/exchangerate/ADA/USD?apikey=96314490-9818-4E6B-A2E4-FED6D87E1858';
+        var key = '96314490-9818-4E6B-A2E4-FED6D87E1858';
 
         $(document).ready(function () {
             showAllCoin();
@@ -263,10 +268,10 @@
 
             // GET BTC
             $.ajax({
-                url: 'https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7',
+                url: btcHtml,
                 type: 'GET',
                 headers: {
-                    'apikey': '2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7'
+                    'apikey': key
                 },
                 data: {
 
@@ -292,10 +297,10 @@
 
             // GET ETC
             $.ajax({
-                url: 'https://rest.coinapi.io/v1/exchangerate/ETC/USD?apikey=2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7',
+                url: etcHtml,
                 type: 'GET',
                 headers: {
-                    'apikey': '2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7'
+                    'apikey': key
                 },
                 data: {
 
@@ -321,10 +326,10 @@
 
             // GET ADA
             $.ajax({
-                url: 'https://rest.coinapi.io/v1/exchangerate/ADA/USD?apikey=2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7',
+                url: adaHtml,
                 type: 'GET',
                 headers: {
-                    'apikey': '2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7'
+                    'apikey': key
                 },
                 data: {
 
@@ -360,11 +365,24 @@
 
         function buyOperation() {
             piece = $("#pieceInput").val();
-            currentSpending = piece * selectedCoinRate;
-            var currentCoinArray = [selectedCoinName, selectedCoinRate, piece, currentSpending];
-            totalCoinsArray.push(currentCoinArray);
-            clearInputs();
-            addRowToTable(currentCoinArray);
+            money = $("#moneyInput").val();
+            alert(piece);
+            alert(money);
+            var currentCoinArray;
+            if (piece == "") {
+                alert(parseFloat((money / selectedCoinRate)))
+                currentSpending = money;
+                currentCoinArray = [selectedCoinName, selectedCoinRate, parseFloat((money / selectedCoinRate)), currentSpending];
+                totalCoinsArray.push(currentCoinArray);
+                clearInputs();
+                addRowToTable(currentCoinArray);
+            } else {
+                currentSpending = piece * selectedCoinRate;
+                currentCoinArray = [selectedCoinName, selectedCoinRate, piece, currentSpending];
+                totalCoinsArray.push(currentCoinArray);
+                clearInputs();
+                addRowToTable(currentCoinArray);
+            }
         }
 
         function clearInputs() {
