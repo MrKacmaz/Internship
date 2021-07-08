@@ -225,7 +225,7 @@
                 <div id="flush-collapseThree" class="accordion-collapse collapse acrdDiv"
                     aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushProfit">
                     <div class="accordion-body">
-                        <!--  -->
+                        <!-- Table Body Start -->
                         <table class="table table-dark table-striped table-borderless">
                             <thead>
                                 <tr>
@@ -240,7 +240,7 @@
                             </thead>
                             <tbody id="tbodyProfit"></tbody>
                         </table>
-                        <!--  -->
+                        <!-- Table Body End -->
                     </div>
                 </div>
             </div>
@@ -263,10 +263,10 @@
 
             // GET BTC
             $.ajax({
-                url: 'https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=67D95600-D20A-477C-BFB3-035151CD7855',
+                url: 'https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7',
                 type: 'GET',
                 headers: {
-                    'apikey': '67D95600-D20A-477C-BFB3-035151CD7855'
+                    'apikey': '2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7'
                 },
                 data: {
 
@@ -292,10 +292,10 @@
 
             // GET ETC
             $.ajax({
-                url: 'https://rest.coinapi.io/v1/exchangerate/ETC/USD?apikey=67D95600-D20A-477C-BFB3-035151CD7855',
+                url: 'https://rest.coinapi.io/v1/exchangerate/ETC/USD?apikey=2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7',
                 type: 'GET',
                 headers: {
-                    'apikey': '67D95600-D20A-477C-BFB3-035151CD7855'
+                    'apikey': '2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7'
                 },
                 data: {
 
@@ -321,10 +321,10 @@
 
             // GET ADA
             $.ajax({
-                url: 'https://rest.coinapi.io/v1/exchangerate/ADA/USD?apikey=67D95600-D20A-477C-BFB3-035151CD7855',
+                url: 'https://rest.coinapi.io/v1/exchangerate/ADA/USD?apikey=2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7',
                 type: 'GET',
                 headers: {
-                    'apikey': '67D95600-D20A-477C-BFB3-035151CD7855'
+                    'apikey': '2A26E69D-B3DB-46BD-B6EF-75CE8C1772A7'
                 },
                 data: {
 
@@ -436,25 +436,31 @@
             let selectedCoinSellPrice = $(uniqueCounter).parent().parent().children().eq(4).text();
             let selectedCoinSellPiece = $(uniqueCounter).parent().parent().children().eq(3).text();
             let selectedCoinSellName = $(uniqueCounter).parent().parent().children().eq(1).text();
-
+            let profit;
+            let coinBuyPiece
             switch (selectedCoinSellName) {
 
                 case "BTC":
                     claimAllCoinMoney = claimAllCoinMoney - (btcFinal * selectedCoinSellPiece);
-                    // profit ve coinBuyPiece düzenle, onlar yok !!!!!!!!!
+                    profit = (btcFinal * selectedCoinSellPiece) - (btcFirst * selectedCoinSellPiece);
+                    coinBuyPiece = selectedCoinSellPiece;
                     addRowInProfit(selectedCoinSellName, btcFirst, coinBuyPiece, btcFinal, selectedCoinSellPiece, profit);
                     break;
 
                 case "ETC":
                     claimAllCoinMoney = claimAllCoinMoney - (etcFinal * selectedCoinSellPiece);
-                    // profit ve coinBuyPiece düzenle, onlar yok !!!!!!!!!
-                    addRowInProfit(selectedCoinSellName, btcFirst, coinBuyPiece, btcFinal, selectedCoinSellPiece, profit);
+                    profit = (etcFinal * selectedCoinSellPiece) - (etcFirst * selectedCoinSellPiece);
+                    coinBuyPiece = selectedCoinSellPiece;
+                    addRowInProfit(selectedCoinSellName, etcFirst, coinBuyPiece, etcFinal, selectedCoinSellPiece, profit);
                     break;
 
                 case "ADA":
                     claimAllCoinMoney = claimAllCoinMoney - (adaFinal * selectedCoinSellPiece);
-                    // profit ve coinBuyPiece düzenle, onlar yok !!!!!!!!!
-                    addRowInProfit(selectedCoinSellName, btcFirst, coinBuyPiece, btcFinal, selectedCoinSellPiece, profit);
+                    profit = (adaFinal * selectedCoinSellPiece) - (adaFirst * selectedCoinSellPiece);
+                    console.log(adaFinal * selectedCoinSellPiece);
+                    console.log(adaFirst * selectedCoinSellPiece);
+                    coinBuyPiece = selectedCoinSellPiece;
+                    addRowInProfit(selectedCoinSellName, adaFirst, coinBuyPiece, adaFinal, selectedCoinSellPiece, profit);
                     break;
 
                 default:
@@ -466,7 +472,9 @@
         }
 
         function addRowInProfit(coinName, coinBuyRate, coinBuyPiece, CoinSellRate, CoinSellPiece, profit) {
-            alert("addRowInProfit");
+            let bckColor;
+            (profit > 0) ? bckColor = "green" : ((profit < 0) ? bckColor = "red" : bckColor = "orange");
+
             $("#tbodyProfit").append(
                 '<tr id = trProfit-' + counterProfit + '>' +
                 '<td id = tdProfitCounter-' + counterProfit + '>' + (counterProfit + 1) + '</td>' +
@@ -475,7 +483,7 @@
                 '<td id = tdProfitCBP-' + counterProfit + '>' + coinBuyPiece + '</td>' +
                 '<td id = tdProfitCSR-' + counterProfit + '>' + CoinSellRate + '</td>' +
                 '<td id = tdProfitCSP-' + counterProfit + '>' + CoinSellPiece + '</td>' +
-                '<td id = tdProfitP-' + counterProfit + '>' + profit + '</td>' +
+                '<td id = tdProfitP-' + counterProfit + ' style=" font-weight: bold; color:' + bckColor + '">' + profit + '</td>' +
                 '</tr>'
             );
             counterProfit++;
