@@ -133,7 +133,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Coin Operations</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -187,7 +187,7 @@
                 <h2 class="accordion-header" id="flush-headingOne">
                     <button class="accordion-button collapsed acrdBtn" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        <p>Coin Wallet</p>
+                        <p>Coin Account Statement</p>
                     </button>
                 </h2>
                 <div id="flush-collapseOne" class="accordion-collapse collapse acrdDiv"
@@ -311,10 +311,10 @@
         var btcFirst, etcFirst, adaFirst;
         var btcFinal, etcFinal, adaFinal;
 
-        var etcHtml = 'https://rest.coinapi.io/v1/exchangerate/ETC/USD?apikey=BCCFF263-DE21-4A96-97B5-9EE4AD1FA495';
-        var btcHtml = 'https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=BCCFF263-DE21-4A96-97B5-9EE4AD1FA495';
-        var adaHtml = 'https://rest.coinapi.io/v1/exchangerate/ADA/USD?apikey=BCCFF263-DE21-4A96-97B5-9EE4AD1FA495';
-        var key = 'BCCFF263-DE21-4A96-97B5-9EE4AD1FA495';
+        var etcHtml = 'https://rest.coinapi.io/v1/exchangerate/ETC/USD?apikey=3A832087-ACAF-43AD-B2FD-B24815CED8DA';
+        var btcHtml = 'https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=3A832087-ACAF-43AD-B2FD-B24815CED8DA';
+        var adaHtml = 'https://rest.coinapi.io/v1/exchangerate/ADA/USD?apikey=3A832087-ACAF-43AD-B2FD-B24815CED8DA';
+        var key = '3A832087-ACAF-43AD-B2FD-B24815CED8DA';
 
         // IMOPRTANT
         var uniqueCounter;
@@ -487,7 +487,7 @@
 
         function coinSellBtn(incomeUniqueCounter) {
             uniqueCounter = incomeUniqueCounter;
-            showAllCoin();
+            // showAllCoin();
 
             // the selected amount is subtracted from all money 
             let selectedCoinSellPrice = $(uniqueCounter).parent().parent().children().eq(4).text();
@@ -495,23 +495,92 @@
             selectedCoinPiece = $(uniqueCounter).parent().parent().children().eq(3).text();
             selectedCoinSellName = $(uniqueCounter).parent().parent().children().eq(1).text();
 
+
             $("#modalCoinName").val(selectedCoinSellName);
             $("#modalCoinName").attr("disabled", true);
             $("#modalCoinFirstRate").val(selectedCoinFirstRate);
             $("#modalCoinFirstRate").attr("disabled", true);
             $("#modalCoinSellPrice").attr("disabled", true);
             if (selectedCoinSellName == "BTC") {
+                getBTC();
                 $("#modalCoinFinalRate").val(btcFinal);
                 $("#modalCoinFinalRate").attr("disabled", true);
             } else if (selectedCoinSellName == "ETC") {
+                getETC();
                 $("#modalCoinFinalRate").val(etcFinal);
                 $("#modalCoinFinalRate").attr("disabled", true);
             } else if (selectedCoinSellName == "ADA") {
+                getADA();
                 $("#modalCoinFinalRate").val(adaFinal);
                 $("#modalCoinFinalRate").attr("disabled", true);
             } else {
                 swal("ERROR", "selectedCoinSellName Not Defined", "error");
             }
+
+        }
+
+        function getBTC() {
+            // GET BTC
+            $.ajax({
+                url: btcHtml,
+                type: 'GET',
+                headers: {
+                    'apikey': key
+                },
+                data: {
+
+                },
+                beforeSend: function () {
+
+                },
+                success: function (data) {
+                    $("#btcRateP").text("$ " + data.rate);
+                    btcFinal = data.rate;
+                }
+            });
+
+        }
+
+        function getETC() {
+            $.ajax({
+                url: etcHtml,
+                type: 'GET',
+                headers: {
+                    'apikey': key
+                },
+                data: {
+
+                },
+                beforeSend: function () {
+
+                },
+                success: function (data) {
+                    $("#etcRateP").text("$ " + data.rate);
+                    etcFinal = data.rate;
+                }
+            });
+
+
+        }
+
+        function getADA() {
+            $.ajax({
+                url: adaHtml,
+                type: 'GET',
+                headers: {
+                    'apikey': key
+                },
+                data: {
+
+                },
+                beforeSend: function () {
+
+                },
+                success: function (data) {
+                    $("#adaRateP").text("$ " + data.rate);
+                    adaFinal = data.rate;
+                }
+            });
 
         }
 
@@ -579,15 +648,12 @@
                                 break;
                         }
 
-
-
                         addRowInProfit();
 
                         addRowInCoinWalletSel()
 
-                        // delet selected row
-                        let rowInSweetAlert = uniqueCounter.parentNode.parentNode;
-                        rowInSweetAlert.parentNode.removeChild(rowInSweetAlert);
+                        deleteRowInOperation($("#modalCoinSellAmount").val(), selectedCoinPiece);
+
                         swal("Successful! Your coin has been sold!", {
                             icon: "success",
                         });
@@ -629,6 +695,21 @@
                 '<td id= ' + counter + '> SELL </td>' +
                 '</tr>'
             );
+        }
+
+        function deleteRowInOperation(sellPiece, amountPiece) {
+            if (sellPiece < amountPiece) {
+                alert("if (sellPiece < amountPiece)");
+                $(uniqueCounter).parent().parent().children().eq(3).html(amountPiece - sellPiece);
+            } else if (sellPiece == amountPiece) {
+                alert("else if (sellPiece == amountPiece");
+                // delet selected row
+                let rowInSweetAlert = uniqueCounter.parentNode.parentNode;
+                rowInSweetAlert.parentNode.removeChild(rowInSweetAlert);
+            } else {
+                swal("Operation Error", " Error in deleteRowInOperation", "error");
+            }
+
         }
     </script>
 </body>
