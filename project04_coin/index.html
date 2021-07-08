@@ -125,6 +125,61 @@
         </div>
     </div>
 
+    <div class="sellModal">
+
+        <!-- Modal -->
+        <div class="modal fade" id="sellModalBtn" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- modal input start -->
+
+                        <!-- coin name (disabled) -->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Coin Name</span>
+                            <input type="text" class="form-control" id="modalCoinName">
+                        </div>
+
+                        <!-- coin first rate (disabled)-->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Claim Rate</span>
+                            <input type="number" class="form-control" id="modalCoinFirstRate">
+                        </div>
+
+                        <!-- coin final rate (disabled) -->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Sell Rate</span>
+                            <input type="number" class="form-control" id="modalCoinFinalRate">
+                        </div>
+
+                        <!-- coin sell amount -->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Sell Amount</span>
+                            <input type="number" class="form-control" id="modalCoinSellAmount">
+                        </div>
+
+                        <!-- coin sell amount price (disabled) -->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Price</span>
+                            <input type="number" class="form-control" id="modalCoinSellPrice">
+                        </div>
+
+                        <!-- modal input end -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="extractionProcess()">Sell</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="accordingDiv">
 
         <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -149,6 +204,7 @@
                                         <th scope="col">Coin Rate</th>
                                         <th scope="col">Piece</th>
                                         <th scope="col">Total</th>
+                                        <th scope="col">Transaction</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbody">
@@ -255,10 +311,18 @@
         var btcFirst, etcFirst, adaFirst;
         var btcFinal, etcFinal, adaFinal;
 
-        var etcHtml = 'https://rest.coinapi.io/v1/exchangerate/ETC/USD?apikey=96314490-9818-4E6B-A2E4-FED6D87E1858';
-        var btcHtml = 'https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=96314490-9818-4E6B-A2E4-FED6D87E1858';
-        var adaHtml = 'https://rest.coinapi.io/v1/exchangerate/ADA/USD?apikey=96314490-9818-4E6B-A2E4-FED6D87E1858';
-        var key = '96314490-9818-4E6B-A2E4-FED6D87E1858';
+        var etcHtml = 'https://rest.coinapi.io/v1/exchangerate/ETC/USD?apikey=BCCFF263-DE21-4A96-97B5-9EE4AD1FA495';
+        var btcHtml = 'https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=BCCFF263-DE21-4A96-97B5-9EE4AD1FA495';
+        var adaHtml = 'https://rest.coinapi.io/v1/exchangerate/ADA/USD?apikey=BCCFF263-DE21-4A96-97B5-9EE4AD1FA495';
+        var key = 'BCCFF263-DE21-4A96-97B5-9EE4AD1FA495';
+
+        // IMOPRTANT
+        var uniqueCounter;
+        // coin sell btn functions' variables
+        var coinSellName, first, coinBuyPiece, final, coinSellPiece, profit, selectedCoinPiece;
+
+        // for error
+        var selectedCoinSellName;
 
         $(document).ready(function () {
             showAllCoin();
@@ -366,8 +430,6 @@
         function buyOperation() {
             piece = $("#pieceInput").val();
             money = $("#moneyInput").val();
-            alert(piece);
-            alert(money);
             var currentCoinArray;
             if (piece == "") {
                 alert(parseFloat((money / selectedCoinRate)))
@@ -401,6 +463,7 @@
                 '<td id= ' + counter + '>' + parseFloat(currentCoinArray[1]).toFixed(2) + '</td>' +
                 '<td id= ' + counter + '>' + currentCoinArray[2] + '</td>' +
                 '<td id= ' + counter + '>' + parseFloat(currentCoinArray[3]).toFixed(2) + '</td>' +
+                '<td id= ' + counter + '> BUY </td>' +
                 '</tr>'
             );
 
@@ -411,7 +474,7 @@
                 '<td id= ' + counter + '>' + parseFloat(currentCoinArray[1]).toFixed(2) + '</td>' +
                 '<td id= ' + counter + '>' + currentCoinArray[2] + '</td>' +
                 '<td id= ' + counter + '>' + parseFloat(currentCoinArray[3]).toFixed(2) + '</td>' +
-                '<td id= sell-' + counter + '>' + '<button type="button" class="btn btn-warning" onclick="coinSellBtn(this)">Sell</button>' + '</td>' +
+                '<td id= sell-' + counter + '>' + '<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#sellModalBtn" onclick="coinSellBtn(this)">Sell</button>' + '</td>' +
                 '</tr>'
             );
 
@@ -422,18 +485,105 @@
             swal("Payment Successful!", "Thank you for using MrKacmaz Coin System!", "success");
         }
 
-        function coinSellBtn(uniqueCounter) {
-            swal({
-                title: "Are you sure?",
-                text: "Once you sell, you will not be able to recover this coin!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willDelete) => {
+        function coinSellBtn(incomeUniqueCounter) {
+            uniqueCounter = incomeUniqueCounter;
+            showAllCoin();
+
+            // the selected amount is subtracted from all money 
+            let selectedCoinSellPrice = $(uniqueCounter).parent().parent().children().eq(4).text();
+            let selectedCoinFirstRate = $(uniqueCounter).parent().parent().children().eq(2).text();
+            selectedCoinPiece = $(uniqueCounter).parent().parent().children().eq(3).text();
+            selectedCoinSellName = $(uniqueCounter).parent().parent().children().eq(1).text();
+
+            $("#modalCoinName").val(selectedCoinSellName);
+            $("#modalCoinName").attr("disabled", true);
+            $("#modalCoinFirstRate").val(selectedCoinFirstRate);
+            $("#modalCoinFirstRate").attr("disabled", true);
+            $("#modalCoinSellPrice").attr("disabled", true);
+            if (selectedCoinSellName == "BTC") {
+                $("#modalCoinFinalRate").val(btcFinal);
+                $("#modalCoinFinalRate").attr("disabled", true);
+            } else if (selectedCoinSellName == "ETC") {
+                $("#modalCoinFinalRate").val(etcFinal);
+                $("#modalCoinFinalRate").attr("disabled", true);
+            } else if (selectedCoinSellName == "ADA") {
+                $("#modalCoinFinalRate").val(adaFinal);
+                $("#modalCoinFinalRate").attr("disabled", true);
+            } else {
+                swal("ERROR", "selectedCoinSellName Not Defined", "error");
+            }
+
+        }
+
+        var selectedCoinSellPiece;
+        $("#modalCoinSellAmount").on("input", function () {
+            $("#modalCoinSellPrice").val($(this).val() * $("#modalCoinFinalRate").val())
+            selectedCoinSellPiece = $(this).val();
+
+        });
+
+        function extractionProcess() {
+            if ($("#modalCoinSellAmount").val() <= selectedCoinPiece) {
+                swal({
+                    title: "Are you sure?",
+                    text: "Once you sell, you will not be able to recover this coin!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
                     if (willDelete) {
 
-                        extractionProcess(uniqueCounter);
+
+                        switch (selectedCoinSellName) {
+
+                            case "BTC":
+
+
+                                claimAllCoinMoney = claimAllCoinMoney - (btcFinal * selectedCoinSellPiece);
+
+                                coinSellName = selectedCoinSellName;
+                                first = btcFirst;
+                                coinBuyPiece = selectedCoinSellPiece;
+                                final = btcFinal;
+                                coinSellPiece = selectedCoinSellPiece;
+                                profit = (btcFinal * selectedCoinSellPiece) - (btcFirst * selectedCoinSellPiece);
+                                break;
+
+                            case "ETC":
+
+
+                                claimAllCoinMoney = claimAllCoinMoney - (etcFinal * selectedCoinSellPiece);
+
+                                coinSellName = selectedCoinSellName;
+                                first = etcFirst;
+                                coinBuyPiece = selectedCoinSellPiece;
+                                final = etcFinal;
+                                coinSellPiece = selectedCoinSellPiece
+                                profit = (etcFinal * selectedCoinSellPiece) - (etcFirst * selectedCoinSellPiece);
+                                break;
+
+                            case "ADA":
+
+                                claimAllCoinMoney = claimAllCoinMoney - (adaFinal * selectedCoinSellPiece);
+
+                                coinSellName = selectedCoinSellName;
+                                first = adaFirst;
+                                coinBuyPiece = selectedCoinSellPiece;
+                                final = adaFinal;
+                                coinSellPiece = selectedCoinSellPiece;
+                                profit = (adaFinal * selectedCoinSellPiece) - (adaFirst * selectedCoinSellPiece);
+                                break;
+
+                            default:
+                                swal("ERROR!", "extractionProcess() switch case error", "error");
+                                break;
+                        }
+
+
+
+                        addRowInProfit();
+
+                        addRowInCoinWalletSel()
 
                         // delet selected row
                         let rowInSweetAlert = uniqueCounter.parentNode.parentNode;
@@ -445,66 +595,40 @@
                         swal("Your coin is safe!");
                     }
                 });
-        }
-
-        function extractionProcess(uniqueCounter) {
-            showAllCoin();
-
-            // the selected amount is subtracted from all money 
-            let selectedCoinSellPrice = $(uniqueCounter).parent().parent().children().eq(4).text();
-            let selectedCoinSellPiece = $(uniqueCounter).parent().parent().children().eq(3).text();
-            let selectedCoinSellName = $(uniqueCounter).parent().parent().children().eq(1).text();
-            let profit;
-            let coinBuyPiece
-            switch (selectedCoinSellName) {
-
-                case "BTC":
-                    claimAllCoinMoney = claimAllCoinMoney - (btcFinal * selectedCoinSellPiece);
-                    profit = (btcFinal * selectedCoinSellPiece) - (btcFirst * selectedCoinSellPiece);
-                    coinBuyPiece = selectedCoinSellPiece;
-                    addRowInProfit(selectedCoinSellName, btcFirst, coinBuyPiece, btcFinal, selectedCoinSellPiece, profit);
-                    break;
-
-                case "ETC":
-                    claimAllCoinMoney = claimAllCoinMoney - (etcFinal * selectedCoinSellPiece);
-                    profit = (etcFinal * selectedCoinSellPiece) - (etcFirst * selectedCoinSellPiece);
-                    coinBuyPiece = selectedCoinSellPiece;
-                    addRowInProfit(selectedCoinSellName, etcFirst, coinBuyPiece, etcFinal, selectedCoinSellPiece, profit);
-                    break;
-
-                case "ADA":
-                    claimAllCoinMoney = claimAllCoinMoney - (adaFinal * selectedCoinSellPiece);
-                    profit = (adaFinal * selectedCoinSellPiece) - (adaFirst * selectedCoinSellPiece);
-                    console.log(adaFinal * selectedCoinSellPiece);
-                    console.log(adaFirst * selectedCoinSellPiece);
-                    coinBuyPiece = selectedCoinSellPiece;
-                    addRowInProfit(selectedCoinSellName, adaFirst, coinBuyPiece, adaFinal, selectedCoinSellPiece, profit);
-                    break;
-
-                default:
-                    swal("ERROR!", "extractionProcess() switch case error", "error");
-                    break;
+            } else {
+                swal("Amount Error!", "You don't have that many coins", "error");
             }
-
-
         }
 
-        function addRowInProfit(coinName, coinBuyRate, coinBuyPiece, CoinSellRate, CoinSellPiece, profit) {
+        function addRowInProfit() {
             let bckColor;
             (profit > 0) ? bckColor = "green" : ((profit < 0) ? bckColor = "red" : bckColor = "orange");
 
             $("#tbodyProfit").append(
                 '<tr id = trProfit-' + counterProfit + '>' +
                 '<td id = tdProfitCounter-' + counterProfit + '>' + (counterProfit + 1) + '</td>' +
-                '<td id = tdProfitCN-' + counterProfit + '>' + coinName + '</td>' +
-                '<td id = tdProfitCBR-' + counterProfit + '>' + coinBuyRate + '</td>' +
+                '<td id = tdProfitCN-' + counterProfit + '>' + coinSellName + '</td>' +
+                '<td id = tdProfitCBR-' + counterProfit + '>' + first + '</td>' +
                 '<td id = tdProfitCBP-' + counterProfit + '>' + coinBuyPiece + '</td>' +
-                '<td id = tdProfitCSR-' + counterProfit + '>' + CoinSellRate + '</td>' +
-                '<td id = tdProfitCSP-' + counterProfit + '>' + CoinSellPiece + '</td>' +
+                '<td id = tdProfitCSR-' + counterProfit + '>' + final + '</td>' +
+                '<td id = tdProfitCSP-' + counterProfit + '>' + coinSellPiece + '</td>' +
                 '<td id = tdProfitP-' + counterProfit + ' style=" font-weight: bold; color:' + bckColor + '">' + profit + '</td>' +
                 '</tr>'
             );
             counterProfit++;
+        }
+
+        function addRowInCoinWalletSel() {
+            $("#tbody").append(
+                '<tr id = tr-' + counter + '>' +
+                '<td id= ' + counter + '>' + (counter + 1) + '</td>' +
+                '<td id= ' + counter + '>' + coinSellName + '</td>' +
+                '<td id= ' + counter + '>' + final + '</td>' +
+                '<td id= ' + counter + '>' + coinSellPiece + '</td>' +
+                '<td id= ' + counter + '>' + (final * coinSellPiece) + '</td>' +
+                '<td id= ' + counter + '> SELL </td>' +
+                '</tr>'
+            );
         }
     </script>
 </body>
