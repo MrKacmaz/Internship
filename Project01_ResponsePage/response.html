@@ -81,31 +81,31 @@
                 </div>
             </div>
 
+        </div>
+        <div class="table table-responsive">
+            <table class="table table-sm table-striped table-hover table-bordered" id="responseTable"
+                style="display: none;">
+                <h3 id="welcomeMessage">You can add a new user to your contact</h3>
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">NAME</th>
+                        <th scope="col">SURNAME</th>
+                        <th scope="col">MAIL</th>
+                        <th scope="col">PHONE NO</th>
+                        <th scope="col">UPDATE</th>
+                        <th scope="col">DELETE</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
 
-            <div class="table table-responsive">
-                <table class="table table-sm table-striped table-hover table-bordered" id="responseTable"
-                    style="display: none;">
-                    <h3 id="welcomeMessage">You can add a new user to your contact</h3>
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">NAME</th>
-                            <th scope="col">SURNAME</th>
-                            <th scope="col">MAIL</th>
-                            <th scope="col">PHONE NO</th>
-                            <th scope="col">UPDATE</th>
-                            <th scope="col">DELETE</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody">
-
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
+        </div>
 
         </div>
     </main>
-    
+
     <script>
 
         var responseTable = document.getElementById("responseTable"),
@@ -246,7 +246,7 @@
             } else {
                 swal("Update Error", "At least one Input must be changed", "info");
             }
-            
+
             clear();
 
         }
@@ -270,7 +270,7 @@
                 swal("Error", "Validation Error!", "error");
             }
         }
-       
+
         function clear() {
             document.getElementById("name").value = "";
             document.getElementById("surname").value = "";
