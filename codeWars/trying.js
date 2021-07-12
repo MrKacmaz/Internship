@@ -99,3 +99,20 @@
 // }
 
 // console.log(bit_counter(7739944717));
+
+// function toWeirdCase(string) {
+//     var strArr = [...string];
+//     var retVal = "";
+//     for (let i = 0; i < strArr.length; i++) {
+//         if (strArr[i] == " ") {
+//             retVal += " ";
+//         } else if (i % 2 == 0) {
+//             retVal += strArr[i].toUpperCase();
+//         } else if (i % 2 != 0) {
+//             retVal += strArr[i].toLowerCase();
+//         }
+//     }
+//     return retVal;
+// }
+
+// console.log(toWeirdCase("This is a test"));
