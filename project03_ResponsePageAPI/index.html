@@ -155,32 +155,33 @@
                     type: 'POST',
                     headers: {
                         // your api key
-                        // 'x-api-key': ''                    },
-                        data: {
-                            name: nameC,
-                            surname: surnameC,
-                            email: emailC,
-                            phone: numberC
-                        },
-                        beforeSend: function () {
+                        'x-api-key': ''
+                    },
+                    data: {
+                        name: nameC,
+                        surname: surnameC,
+                        email: emailC,
+                        phone: numberC
+                    },
+                    beforeSend: function () {
 
-                        },
-                        success: function (data) {
-                            console.log(data.message);
-                            // insert the row to our table 
-                            let row = tableRef.insertRow().innerHTML =
-                                "<td>" + data.message.id + "</td>" +
-                                "<td id = 'nameID' class = 'row-data'>" + data.message.name + "</td>" +
-                                "<td id = 'surnameID' class = 'row-data'> " + data.message.surname + "</td>" +
-                                "<td id = 'mailID' class = 'row-data'> " + data.message.email + "</td> " +
-                                "<td id = 'numberID' class = 'row-data'> " + data.message.phone + "</td>" +
+                    },
+                    success: function (data) {
+                        console.log(data.message);
+                        // insert the row to our table 
+                        let row = tableRef.insertRow().innerHTML =
+                            "<td>" + data.message.id + "</td>" +
+                            "<td id = 'nameID' class = 'row-data'>" + data.message.name + "</td>" +
+                            "<td id = 'surnameID' class = 'row-data'> " + data.message.surname + "</td>" +
+                            "<td id = 'mailID' class = 'row-data'> " + data.message.email + "</td> " +
+                            "<td id = 'numberID' class = 'row-data'> " + data.message.phone + "</td>" +
 
-                                // added two buttons for each row 
-                                // update button fistly 
-                                "<td> <button  class = 'btn btn-outline-success' data-bs-toggle='modal' data-bs-target='#exampleModal' onclick ='ShowUserInfo(this)' > Update </button> </td>" +
-                                "<td> <button  class = 'btn btn-outline-danger' onclick='DeleteUser(this)'> Delete </button> </td>";
-                        }
-                    });
+                            // added two buttons for each row 
+                            // update button fistly 
+                            "<td> <button  class = 'btn btn-outline-success' data-bs-toggle='modal' data-bs-target='#exampleModal' onclick ='ShowUserInfo(this)' > Update </button> </td>" +
+                            "<td> <button  class = 'btn btn-outline-danger' onclick='DeleteUser(this)'> Delete </button> </td>";
+                    }
+                });
 
 
                 // sweet alert for added user to table successfully
@@ -202,32 +203,33 @@
                 type: 'GET',
                 headers: {
                     // your api key
-                    // 'x-api-key': ''                },
-                    data: {
+                    'x-api-key': ''
+                },
+                data: {
 
-                    },
-                    beforeSend: function () {
+                },
+                beforeSend: function () {
 
-                    },
-                    success: function (data) {
+                },
+                success: function (data) {
 
-                        for (let i = 0; i < data.message.length; i++) {
+                    for (let i = 0; i < data.message.length; i++) {
 
-                            // insert the row to our table 
-                            let row = tableRef.insertRow().innerHTML =
-                                "<td>" + data.message[i].id + "</td>" +
-                                "<td id = 'nameID' class = 'row-data'>" + data.message[i].name + "</td>" +
-                                "<td id = 'surnameID' class = 'row-data'> " + data.message[i].surname + "</td>" +
-                                "<td id = 'mailID' class = 'row-data'> " + data.message[i].email + "</td> " +
-                                "<td id = 'numberID' class = 'row-data'> " + data.message[i].phone + "</td>" +
+                        // insert the row to our table 
+                        let row = tableRef.insertRow().innerHTML =
+                            "<td>" + data.message[i].id + "</td>" +
+                            "<td id = 'nameID' class = 'row-data'>" + data.message[i].name + "</td>" +
+                            "<td id = 'surnameID' class = 'row-data'> " + data.message[i].surname + "</td>" +
+                            "<td id = 'mailID' class = 'row-data'> " + data.message[i].email + "</td> " +
+                            "<td id = 'numberID' class = 'row-data'> " + data.message[i].phone + "</td>" +
 
-                                // added two buttons for each row 
-                                // update button fistly 
-                                "<td> <button  class = 'btn btn-outline-success' data-bs-toggle='modal' data-bs-target='#exampleModal' onclick ='ShowUserInfo(this)' > Update </button> </td>" +
-                                "<td> <button  class = 'btn btn-outline-danger' onclick='DeleteUser(this)'> Delete </button> </td>";
-                        }
+                            // added two buttons for each row 
+                            // update button fistly 
+                            "<td> <button  class = 'btn btn-outline-success' data-bs-toggle='modal' data-bs-target='#exampleModal' onclick ='ShowUserInfo(this)' > Update </button> </td>" +
+                            "<td> <button  class = 'btn btn-outline-danger' onclick='DeleteUser(this)'> Delete </button> </td>";
                     }
-                });
+                }
+            });
 
         }
 
@@ -251,7 +253,7 @@
                         type: 'DELETE',
                         headers: {
                             // your api key
-                            // 'x-api-key': ''
+                            'x-api-key': ''
                         },
                         data: {
                             contactId: selectedIndex
@@ -322,24 +324,25 @@
                     type: 'PUT',
                     headers: {
                         // your api key
-                        // 'x-api-key': ''                    },
-                        data: {
-                            name: updatedName,
-                            surname: updatedSurname,
-                            email: updatedMail,
-                            phone: updatedNumber,
-                            contactId: selectedIndexUpdateIndex
-                        },
-                        beforeSend: function () {
+                        'x-api-key': ''
+                    },
+                    data: {
+                        name: updatedName,
+                        surname: updatedSurname,
+                        email: updatedMail,
+                        phone: updatedNumber,
+                        contactId: selectedIndexUpdateIndex
+                    },
+                    beforeSend: function () {
 
-                        },
-                        success: function (data) {
-                            $(updateUniqueCounter).parent().parent().children().eq(1).html(updatedName);
-                            $(updateUniqueCounter).parent().parent().children().eq(2).html(updatedSurname);
-                            $(updateUniqueCounter).parent().parent().children().eq(3).html(updatedMail);
-                            $(updateUniqueCounter).parent().parent().children().eq(4).html(updatedNumber);
-                        }
-                    });
+                    },
+                    success: function (data) {
+                        $(updateUniqueCounter).parent().parent().children().eq(1).html(updatedName);
+                        $(updateUniqueCounter).parent().parent().children().eq(2).html(updatedSurname);
+                        $(updateUniqueCounter).parent().parent().children().eq(3).html(updatedMail);
+                        $(updateUniqueCounter).parent().parent().children().eq(4).html(updatedNumber);
+                    }
+                });
 
                 swal("Successful", "User successfully updated", "success");
             } else {

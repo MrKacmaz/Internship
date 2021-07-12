@@ -49,3 +49,53 @@
 // console.log(rgbToHex(13, 183, 271));
 
 
+// function solution(string) {
+//     var result = "";
+//     var strArr = [...string];
+//     for (let i = 0; i < strArr.length; i++) {
+//         if (strArr[i] == strArr[i].toUpperCase()) {
+//             result += " " + strArr[i];
+//         } else {
+//             result += strArr[i];
+
+//         }
+//     }
+//     return result;
+// }
+// console.log(solution('camelCasing'));
+
+
+// function solution(number) {
+//     if (typeof number !== 'number')
+//         return false;
+
+//     var digits = String(+number).split(""),
+//         key = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM",
+//             "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC",
+//             "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"],
+//         roman_num = "",
+//         i = 3;
+//     while (i--)
+//         roman_num = (key[+digits.pop() + (i * 10)] || "") + roman_num;
+//     return Array(+digits.join("") + 1).join("M") + roman_num;
+// }
+
+// console.log(solution(1000));
+
+// function bit_counter(n) {
+//     var resBits = (n >>> 0).toString(2);
+//     var retVal = 0;
+//     var resBitsArr = [...resBits];
+//     for (let i = 0; i < resBitsArr.length; i++) {
+//         if (parseInt(resBitsArr[i]) === 1) {
+//             retVal += 1;
+//         }
+//     }
+//     if(resBitsArr.length > 30){
+//         return retVal+1;
+//     }else{
+//         return retVal
+//     }
+// }
+
+// console.log(bit_counter(7739944717));
