@@ -20,6 +20,8 @@
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <!-- Sweet alert src -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
 </head>
 
 <body>
@@ -73,6 +75,7 @@
     <!-- MAIN -->
     <main>
         <div class="projectCards">
+            
             <div class="card" style="width: 18rem;">
                 <img src="images/contact.png" class="card-img-top" alt="Contact Page">
                 <div class="card-body">
@@ -100,6 +103,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="card" style="width: 18rem;">
                 <img src="images/yazboz.png" class="card-img-top" alt="Yaz Boz Page">
                 <div class="card-body">
@@ -112,6 +116,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="card" style="width: 18rem;">
                 <img src="images/coin.png" class="card-img-top" alt="Coin Page">
                 <div class="card-body">
@@ -126,12 +131,13 @@
             </div>
         </div>
 
+
         <div class="openModal">
 
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
@@ -160,29 +166,42 @@
 
 
     <script>
+
         function openModalProjects(pNum) {
             // Modals open
             $('#staticBackdrop').modal('show');
             switch (pNum) {
                 case 'p1':
-                    $('#modalBody').text("p1");
+                    $('#modalBody').html(
+                        '<iframe src="../Project01_ResponsePage/response.html" width="1040px" height="840px" allowfullscreen></iframe>'
+                    );
                     break;
+
                 case 'p2':
-                    $('#modalBody').text("p2");
+                    $('#modalBody').html(
+                        '<iframe src="../project03_ResponsePageAPI/index.html" width="1040px" height="840px" allowfullscreen></iframe>'
+                    );
                     break;
+
                 case 'p3':
-                    $('#modalBody').text("p3");
+                    $('#modalBody').html(
+                        '<iframe src="../Project02_SingleGamePage/index.html" width="1040px" height="840px" allowfullscreen></iframe>'
+                    );
                     break;
+
                 case 'p4':
-                    $('#modalBody').text("p4");
+                    $('#modalBody').html(
+                        '<iframe src="../project04_coin/index.html" width="1040px" height="840px" allowfullscreen></iframe>'
+                    );
                     break;
+
                 default:
                     swal("Error!", "Error in Open Modal Function", "error");
                     break;
             }
         }
-    </script>
 
+    </script>
 </body>
 
 </html>
