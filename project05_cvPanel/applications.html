@@ -74,17 +74,17 @@
 
     <!-- MAIN -->
     <main>
-        <div class="projectCards">
-            
+        <div class="projectCards text-center">
+
             <div class="card" style="width: 18rem;">
                 <img src="images/contact.png" class="card-img-top" alt="Contact Page">
                 <div class="card-body">
                     <h5 class="card-title">Contact Page</h5>
                     <p class="card-text">
-                        This is a project making just using JS and Bootstrap5. You can easily add the person to your
+                        This is a project making just using JS and Bootstrap 5. You can easily add the person to your
                         contact and able to update their information.
                     </p>
-                    <button class="btn btn-outline-success" onclick="openModalProjects('p1')">Go to Project</button>
+                    <button class="btn btn-outline-success" onclick="openModalProjects('p1')">Run the Project</button>
                     <div class="card-body">
                         <a href="#" class="card-link">Source Code</a>
                     </div>
@@ -94,10 +94,9 @@
             <div class="card" style="width: 18rem;">
                 <img src="images/contactAPI.png" class="card-img-top" alt="Contact API Page">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <button class="btn btn-outline-success" onclick="openModalProjects('p2')">Go to Project</button>
+                    <h5 class="card-title">Contact API Page</h5>
+                    <p class="card-text">Same as the Contact Page but using API instead of JS</p>
+                    <button class="btn btn-outline-success" onclick="openModalProjects('p2')">Run the Project</button>
                     <div class="card-body">
                         <a href="#" class="card-link">Source Code</a>
                     </div>
@@ -107,10 +106,9 @@
             <div class="card" style="width: 18rem;">
                 <img src="images/yazboz.png" class="card-img-top" alt="Yaz Boz Page">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <button class="btn btn-outline-success" onclick="openModalProjects('p3')">Go to Project</button>
+                    <h5 class="card-title">OKEY Result Page</h5>
+                    <p class="card-text">This is a OKEY game result sheet. Using JS and Bootstrap 5</p>
+                    <button class="btn btn-outline-success" onclick="openModalProjects('p3')">Run the Project</button>
                     <div class="card-body">
                         <a href="#" class="card-link">Source Code</a>
                     </div>
@@ -120,10 +118,9 @@
             <div class="card" style="width: 18rem;">
                 <img src="images/coin.png" class="card-img-top" alt="Coin Page">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <button class="btn btn-outline-success" onclick="openModalProjects('p4')">Go to Project</button>
+                    <h5 class="card-title">Coin Exchange Page</h5>
+                    <p class="card-text">You can trade on three coins. These are BTC, ETC, and ADA.</p>
+                    <button class="btn btn-outline-success" onclick="openModalProjects('p4')">Run the Project</button>
                     <div class="card-body">
                         <a href="#" class="card-link">Source Code</a>
                     </div>
@@ -173,25 +170,33 @@
             switch (pNum) {
                 case 'p1':
                     $('#modalBody').html(
-                        '<iframe src="../Project01_ResponsePage/response.html" width="1040px" height="840px" allowfullscreen></iframe>'
+                        '<div class="text-center">' +
+                        '<iframe src="../Project01_ResponsePage/response.html" width="1040px" height="840px" allowfullscreen></iframe>' +
+                        '</div>'
                     );
                     break;
 
                 case 'p2':
                     $('#modalBody').html(
-                        '<iframe src="../project03_ResponsePageAPI/index.html" width="1040px" height="840px" allowfullscreen></iframe>'
+                        '<div class="text-center">' +
+                        '<iframe src="../project03_ResponsePageAPI/index.html" width="1040px" height="840px" allowfullscreen></iframe>' +
+                        '</div>'
                     );
                     break;
 
                 case 'p3':
                     $('#modalBody').html(
-                        '<iframe src="../Project02_SingleGamePage/index.html" width="1040px" height="840px" allowfullscreen></iframe>'
+                        '<div class="text-center">' +
+                        '<iframe src="../Project02_SingleGamePage/index.html" width="1040px" height="840px" allowfullscreen></iframe>' +
+                        '</div>'
                     );
                     break;
 
                 case 'p4':
                     $('#modalBody').html(
-                        '<iframe src="../project04_coin/index.html" width="1040px" height="840px" allowfullscreen></iframe>'
+                        '<div class="text-center">' +
+                        '<iframe src="../project04_coin/index.html" width="1040px" height="840px" allowfullscreen></iframe>' +
+                        '</div>'
                     );
                     break;
 
