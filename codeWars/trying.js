@@ -116,3 +116,14 @@
 // }
 
 // console.log(toWeirdCase("This is a test"));
+
+function duplicate(arr) {
+    return arr.reduce(function (prev, cur, i, a) {
+        if (i !== a.indexOf(cur) && prev.indexOf(cur) === -1) {
+            prev.push(cur);
+        }
+        return prev;
+    }, []);
+}
+console.log(duplicate([1, 2, 4, 4, 3, 3, 1, 5, 3, "5"]));
+

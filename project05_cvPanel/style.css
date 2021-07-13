@@ -1,0 +1,6 @@
+img {
+  filter: blur(2px) !important;
+}
+img:hover{
+    filter: blur(0px) !important;
+}
