@@ -1,0 +1,28 @@
+* {
+  font-family: fantasy;
+}
+.imagePart,
+.image,
+.bckgrnd,
+.infoPart {
+  background-color: #ff440057 !important;
+  color: #EAEFF2 !important;
+  text-align: center;
+  /* align-items: center; */
+}
+
+.educationPart,
+.bckgrnd2{
+    background-color: #00e0d565 !important;
+    color: #EAEFF2 !important;
+}
+
+.mustBeBlok{
+    background-color: #EAEFF2;
+    padding: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background-image: linear-gradient(to right,#00e0d565 ,#ff440057);
+
+}
+
